@@ -7,17 +7,23 @@
 // One moves toward the mouse cursor.
 
 
-// The image of NyanCat
-var nyanCat;
+// The image of a clown face
+var clownImage;
 // The current position of the clown face
-var nyanCatImageX;
-var nyanCatImageY;
+var clownImageX;
+var clownImageY;
 
 // The transparent image of "felt" that wipes down the canvas
-var rainbowPixel;
+var feltTextureImage;
 // The current position of the transparent image of "felt"
-var rainbowPixelX;
-var rainbowPixelY;
+var feltTextureImageX;
+var feltTextureImageY;
+
+//adding image of pixelated rainbow
+var rainbowPixelImage;
+//current position of rainbow images
+var rainbowPixelImageX;
+var rainbowPixelImageY;
 
 
 // preload()
@@ -27,6 +33,7 @@ var rainbowPixelY;
 function preload() {
   clownImage = loadImage("assets/images/clown.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
+  rainbowPixelImage = loadImage("assets/images/rainbow.png");
 }
 
 
@@ -46,6 +53,10 @@ function setup() {
   feltTextureImageX = width/2;
   feltTextureImageY = 0 - feltTextureImage.height/2;
 
+  // Start rainbow image to the side of the canvas offscreen
+  rainbowPixelImageY = height/2;
+  rainbowPixelImageX = 0 - rainbowPixelImage.width/2;
+
   // We'll use imageMode CENTER for this script
   imageMode(CENTER);
 }
@@ -61,8 +72,14 @@ function draw() {
   // Move the felt image down by increasing its y position
   feltTextureImageY += 1;
 
+  // move rainbow image by increasing x position
+  rainbowPixelImageX += 1;
+
   // Display the felt image
   image(feltTextureImage,feltTextureImageX,feltTextureImageY);
+
+  // Display rainbow image
+  image(rainbowPixelImage,rainbowPixelImageX,rainbowPixelImageY)
 
   // Move the clown by moving it 1/10th of its current distance from the mouse
 
