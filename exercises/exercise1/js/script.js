@@ -32,6 +32,12 @@ var nyanCatImage;
 var nyanCatImageX;
 var nyanCatImageY;
 
+//image of pixel rainbow
+var pixelArtRainbow;
+//position of pixel rainbow
+var pixelArtRainbowX;
+var pixelArtRainbowY;
+
 // preload()
 //
 // Load the two images we're using before the program starts
@@ -40,7 +46,8 @@ function preload() {
   clownImage = loadImage("assets/images/clown.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
   rainbowPixelImage = loadImage("assets/images/rainbow.png");
-  nyanCatImage = loadImage("assets/images/nyan-cat.png")
+  nyanCatImage = loadImage("assets/images/nyan-cat.png");
+  pixelArtRainbow = loadImage("assets/images/pixelrainbow.png");
 }
 
 
@@ -64,9 +71,13 @@ function setup() {
   rainbowPixelImageY = height/2;
   rainbowPixelImageX = 0 - rainbowPixelImage.width/2;
 
-  //start nyanc cat image at center of canvas
+  //start nyan cat image at center of canvas
   nyanCatImageX = width/2;
   nyanCatImageY = height/2;
+
+  //start rainbow pixel on left of canvas
+  pixelArtRainbowX = width/4;
+  pixelArtRainbowY = height/4;
 
   // We'll use imageMode CENTER for this script
   imageMode(CENTER);
@@ -90,7 +101,7 @@ function draw() {
   image(feltTextureImage,feltTextureImageX,feltTextureImageY);
 
   // Display rainbow image
-  image(rainbowPixelImage,rainbowPixelImageX,rainbowPixelImageY)
+  image(rainbowPixelImage,rainbowPixelImageX,rainbowPixelImageY);
 
   // Move the clown by moving it 1/10th of its current distance from the mouse
 
@@ -101,8 +112,16 @@ function draw() {
   clownImageX = clownImageX + xDistance/10;
   clownImageY = clownImageY + yDistance/10;
 
+  //Calculate distance in X and in Y
+  var xDistance = mouseX - pixelArtRainbowX;
+  var yDistance = mouseY - pixelArtRainbowY;
 
-//Position of nyancat 
+  //add 1/100th to x and y distance to rainbow current location
+  pixelArtRainbowX = pixelArtRainbowX + xDistance/100;
+  pixelArtRainbowY = pixelArtRainbowY + yDistance/100;
+
+
+//Position of nyancat
   nyanCatImageX = mouseX
   nyanCatImageY = mouseY
 
@@ -111,4 +130,7 @@ function draw() {
 
   //Display nyan cat image
   image(nyanCatImage,nyanCatImageX,nyanCatImageY)
+
+  //display image of rainbow
+  image(pixelArtRainbow,pixelArtRainbowX,pixelArtRainbowY)
 }
