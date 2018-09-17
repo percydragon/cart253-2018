@@ -25,6 +25,12 @@ var rainbowPixelImage;
 var rainbowPixelImageX;
 var rainbowPixelImageY;
 
+//image of nyan cat
+var nyanCatImage;
+
+//position of nyancat
+var nyanCatImageX;
+var nyanCatImageY;
 
 // preload()
 //
@@ -34,6 +40,7 @@ function preload() {
   clownImage = loadImage("assets/images/clown.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
   rainbowPixelImage = loadImage("assets/images/rainbow.png");
+  nyanCatImage = loadImage("assets/images/nyan-cat.png")
 }
 
 
@@ -56,6 +63,10 @@ function setup() {
   // Start rainbow image to the side of the canvas offscreen
   rainbowPixelImageY = height/2;
   rainbowPixelImageX = 0 - rainbowPixelImage.width/2;
+
+  //start nyanc cat image at center of canvas
+  nyanCatImageX = width/2;
+  nyanCatImageY = height/2;
 
   // We'll use imageMode CENTER for this script
   imageMode(CENTER);
@@ -90,6 +101,14 @@ function draw() {
   clownImageX = clownImageX + xDistance/10;
   clownImageY = clownImageY + yDistance/10;
 
+
+//Position of nyancat 
+  nyanCatImageX = mouseX
+  nyanCatImageY = mouseY
+
   // Display the clown image
   image(clownImage,clownImageX,clownImageY);
+
+  //Display nyan cat image
+  image(nyanCatImage,nyanCatImageX,nyanCatImageY)
 }
