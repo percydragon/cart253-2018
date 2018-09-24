@@ -112,6 +112,29 @@ function draw() {
     avatarVY = avatarSpeed;
   }
 
+
+  //adding mean if statement where commands are inversed once you get over 3 dodges
+  if (dodges > 3) {
+    if (keyIsDown(RIGHT_ARROW)) {
+      avatarVX = -avatarSpeed;
+    }
+    else if (keyIsDown(LEFT_ARROW)) {
+      avatarVX = avatarSpeed;
+    }
+  }
+  if (dodges > 3) {
+    text("CONTOLS ARE INVERSED!!!", width/1.95, height/9);
+    if (keyIsDown(DOWN_ARROW)) {
+      avatarVY = -avatarSpeed;
+    }
+    else if (keyIsDown(UP_ARROW)) {
+      avatarVY = avatarSpeed;
+    }
+  }
+
+  //DOING THE SAME THING FOR UP AND DOWN
+
+
   // Move the avatar according to its calculated velocity
   avatarX = avatarX + avatarVX;
   avatarY = avatarY + avatarVY;
