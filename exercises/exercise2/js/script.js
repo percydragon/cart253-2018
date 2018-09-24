@@ -204,8 +204,8 @@ function draw() {
 
     //adding randomizer to player
     if (dodges > 1) {
-      avatarSizeH = random(10,height);
-      avatarSizeW = random(10,width);
+      avatarSizeH = random(3,height/2);
+      avatarSizeW = random(3,width/2);
       // TIME TO RANDOMIZE SPEED
       avatarSpeed = random(1,50);
     }
