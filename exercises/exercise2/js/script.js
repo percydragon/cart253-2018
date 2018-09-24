@@ -6,11 +6,15 @@ Pippin Barr
 Starter code for exercise 2.
 
 *********************************************************/
-
+//adding in awesome bg image
+var screamingInternally;
 // The position and size of our avatar circle
 var avatarX;
 var avatarY;
-var avatarSize = 50;
+//inserting image for avatar + dimensions i think??? idk what im doing
+var avatarImage;
+var avatarSizeH = 100;
+var avatarSizeW = 61;
 
 // The speed and velocity of our avatar circle
 var avatarSpeed = 10;
@@ -20,7 +24,10 @@ var avatarVY = 0;
 // The position and size of the enemy circle
 var enemyX;
 var enemyY;
-var enemySize = 50;
+//adding enenemy image + image dimensions I guess??
+var enemyImage
+var enemySizeH = 100;
+var enemySizeW = 63;
 // How much bigger the enemy circle gets with each successful dodge
 var enemySizeIncrease = 5;
 
@@ -42,7 +49,11 @@ var coolFont;
 
 function preload() {
   //loading in coolFont
-  coolFont = loadFont('assets/WalterTurncoat-Regular.ttf')
+  coolFont = loadFont("assets/WalterTurncoat-Regular.ttf");
+  avatarImage = loadImage("assets/images/nyan-cat.png");
+  enemyImage = loadImage("assets/images/tac-nayn.png");
+  screamingInternally = loadImage("assets/images/internally-screaming.jpg");
+
 }
 function setup() {
   // Create our playing area
@@ -60,9 +71,11 @@ function setup() {
   noStroke();
 
   //doing the special font stuff
-    textAlign(LEFT,CENTER);
-    textFont(coolFont);
-    textSize(25);
+  fill(244, 66, 89);
+  stroke(0);
+  textAlign(LEFT,CENTER);
+  textFont(coolFont);
+  textSize(25);
 }
 
 // draw()
@@ -71,7 +84,7 @@ function setup() {
 // game over situations.
 function draw() {
   // A pink background
-  background(255,220,220);
+  background(screamingInternally);
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
@@ -111,14 +124,15 @@ function draw() {
   // Check if the enemy and avatar overlap - if they do the player loses
   // We do this by checking if the distance between the centre of the enemy
   // and the centre of the avatar is less that their combined radii
-  if (dist(enemyX,enemyY,avatarX,avatarY) < enemySize/2 + avatarSize/2) {
+  if (dist(enemyX,enemyY,avatarX,avatarY) < ((enemySizeH/2 + enemySizeW/2) + (avatarSizeH/8 + avatarSizeW/8))) {
     // Tell the player they lost
     console.log("YOU LOSE!");
     // Reset the enemy's position
     enemyX = 0;
     enemyY = random(0,height);
     // Reset the enemy's size and speed
-    enemySize = 50;
+    enemySizeH = 100;
+    enemySizeW = 63;
     enemySpeed = 5;
     // Reset the avatar's position
     avatarX = width/2;
@@ -129,10 +143,12 @@ function draw() {
   // Check if the avatar has gone off the screen (cheating!)
   if (avatarX < 0 || avatarX > width || avatarY < 0 || avatarY > height) {
     // If they went off the screen they lose in the same way as above.
+    //game kept keeping enemy size the same after losing. H and W variables need to be reset
     console.log("YOU LOSE!");
     enemyX = 0;
     enemyY = random(0,height);
-    enemySize = 50;
+    enemySizeH = 100;
+    enemySizeW = 63;
     enemySpeed = 5;
     avatarX = width/2;
     avatarY = height/2;
@@ -149,21 +165,26 @@ function draw() {
     enemyX = 0;
     enemyY = random(0,height);
     // Increase the enemy's speed and size to make the game harder
+    //also adding in the size increase by width and height
     enemySpeed = enemySpeed + enemySpeedIncrease;
-    enemySize = enemySize + enemySizeIncrease;
+    enemySizeH = enemySizeH + enemySizeIncrease;
+    enemySizeW = enemySizeW + enemySizeIncrease;
   }
 
   // Display the current number of successful in the console
   console.log(dodges);
 
   // The player is black
-  fill(0);
+  //fill(0);
   // Draw the player as a circle
-  ellipse(avatarX,avatarY,avatarSize,avatarSize);
+  image(avatarImage,avatarX,avatarY,avatarSizeH,avatarSizeW);
 
   // The enemy is red
-  fill(255,0,0);
+  //fill(255,0,0);
   // Draw the enemy as a circle
-  ellipse(enemyX,enemyY,enemySize,enemySize);
+  //ellipse(enemyX,enemyY,enemySize,enemySize);
+
+  //adding in enemy image
+  image(enemyImage,enemyX,enemyY,enemySizeH,enemySizeW);
 
 }
