@@ -1,7 +1,7 @@
 /*********************************************************
 
 Exercise 2 - The Artful Dodger
-Pippin Barr
+Percy Dragon
 
 Starter code for exercise 2.
 
@@ -39,6 +39,8 @@ var enemySpeedIncrease = 0.5;
 
 // How many dodges the player has made
 var dodges = 0;
+
+
 
 //adding some fancy font
 var coolFont;
@@ -161,7 +163,11 @@ function draw() {
     avatarX = width/2;
     avatarY = height/2;
     // Reset the dodge counter
+    //reseting image if lost
+    avatarSizeH = 100;
+    avatarSizeW = 61;
     dodges = 0;
+    avatarSpeed = 10;
   }
   // Check if the avatar has gone off the screen (cheating!)
   if (avatarX < 0 || avatarX > width || avatarY < 0 || avatarY > height) {
@@ -175,7 +181,10 @@ function draw() {
     enemySpeed = 5;
     avatarX = width/2;
     avatarY = height/2;
+    avatarSizeH = 100;
+    avatarSizeW = 61;
     dodges = 0;
+    avatarSpeed = 10;
   }
 
   // Check if the enemy has moved all the way across the screen
@@ -192,6 +201,14 @@ function draw() {
     enemySpeed = enemySpeed + enemySpeedIncrease;
     enemySizeH = enemySizeH + enemySizeIncrease;
     enemySizeW = enemySizeW + enemySizeIncrease;
+
+    //adding randomizer to player
+    if (dodges > 1) {
+      avatarSizeH = random(10,height);
+      avatarSizeW = random(10,width);
+      // TIME TO RANDOMIZE SPEED
+      avatarSpeed = random(1,50);
+    }
   }
 
   // Display the current number of successful in the console
