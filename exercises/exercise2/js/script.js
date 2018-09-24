@@ -33,12 +33,20 @@ var enemySpeedIncrease = 0.5;
 // How many dodges the player has made
 var dodges = 0;
 
+//adding some fancy font
+var coolFont;
+
 // setup()
 //
 // Make the canvas, position the avatar and anemy
+
+function preload() {
+  //loading in coolFont
+  coolFont = loadFont('assets/WalterTurncoat-Regular.ttf')
+}
 function setup() {
   // Create our playing area
-  createCanvas(500,500);
+  createCanvas(600,600);
 
   // Put the avatar in the centre
   avatarX = width/2;
@@ -50,6 +58,11 @@ function setup() {
 
   // No stroke so it looks cleaner
   noStroke();
+
+  //doing the special font stuff
+    textAlign(LEFT,CENTER);
+    textFont(coolFont);
+    textSize(25);
 }
 
 // draw()
@@ -63,6 +76,8 @@ function draw() {
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
   avatarVY = 0;
+  // adding in dodge numbers text
+  text("You've dodged " + dodges + " time(s)!", width/1.95, height/16);
 
   // Check which keys are down and set the avatar's velocity based on its
   // speed appropriately
@@ -111,7 +126,6 @@ function draw() {
     // Reset the dodge counter
     dodges = 0;
   }
-
   // Check if the avatar has gone off the screen (cheating!)
   if (avatarX < 0 || avatarX > width || avatarY < 0 || avatarY > height) {
     // If they went off the screen they lose in the same way as above.
