@@ -139,7 +139,7 @@ function draw() {
     textSize(128);
     textAlign(CENTER,CENTER);
     noStroke();
-    fill(random(255));
+    fill(random(255),random(255),random(255));
     // Tell them they won!
     text("YOU WINNED!",width/2,height/2);
 
@@ -148,31 +148,13 @@ function draw() {
     strokeWeight(10);
     ellipse(targetX,targetY,targetImage.width,targetImage.height);
   }
-  //me trying to work out how to not get doggo to not show behind rectangle
-  //while(gameOver = false){
-    //if (targetX = rect()){
-      //targetX = random(0,width);
-      //targetY = random(0,height);
-    //}
-    //if (targetY = rect()){
-      //targetX = random(0,width);
-      //targetY = random(0,height);
-    //}
-    if (gameOver) {
-      // Prepare our typography
-      textFont("Helvetica");
-      textSize(128);
-      textAlign(CENTER,CENTER);
-      noStroke();
-      fill(random(255));
-      // Tell them they won!
-      text("YOU WINNED!",width/2,height/2);
+  //have sausage doggo successfully never appear behind interface element
+  while(targetX < width/19 && targetY < height/5){
+    targetX = random(0,width);
+    targetY = random(0,height);
+    image(targetImage,targetX,targetY);
+  }
 
-      noFill();
-      stroke(random(255));
-      strokeWeight(10);
-      ellipse(targetX,targetY,targetImage.width,targetImage.height);
-    }
   }
 
 // mousePressed()
