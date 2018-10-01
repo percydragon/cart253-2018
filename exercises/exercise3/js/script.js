@@ -38,6 +38,10 @@ var numDecoys = 100;
 
 // Keep track of whether they've won
 var gameOver = false;
+//adding in confetti
+var confettiCanon;
+var confettiCanonX;
+var confettiCanonY;
 
 // preload()
 //
@@ -45,6 +49,7 @@ var gameOver = false;
 function preload() {
   targetImage = loadImage("assets/images/animals-target.png");
   targetImageDisplay = loadImage("assets/images/animals-target-copy.png");
+  confettiCanon = loadImage("assets/images/confetti.png")
 
   decoyImage1 = loadImage("assets/images/animals-01.png");
   decoyImage2 = loadImage("assets/images/animals-02.png");
@@ -130,10 +135,21 @@ function setup() {
   textSize(15);
   text('HAVE YOU SEEN THIS DOG?',width/8.2,height/19);
 
+  //adding confettiCanon
+  confettiCanonX = width/2;
+  confettiCanonY = height/2;
+
 }
 
 function draw() {
   if (gameOver) {
+    var xDistance = mouseX - confettiCanonX;
+    var yDistance = mouseY - confettiCanonY;
+    var dogXDistance = mouseX - targetImageDisplayX;
+    var dogYDistance = mouseY - targetImageDisplayY;
+    //i wanted the doggo to follow the mouse, but what happened was an unforseen accident. and it is amazing.
+    targetImageDisplayX = targetX;
+    targetImageDisplayY = targetY;
     // Prepare our typography
     textFont("Helvetica");
     textSize(128);
@@ -142,11 +158,18 @@ function draw() {
     fill(random(255),random(255),random(255));
     // Tell them they won!
     text("YOU WINNED!",width/2,height/2);
-
     noFill();
-    stroke(random(255));
+    stroke(random(255),random(255),random(255));
     strokeWeight(10);
     ellipse(targetX,targetY,targetImage.width,targetImage.height);
+    //sausage doggo was supposed to follow mouse. But something BETTER happened.
+    targetImageDisplayX = targetImageDisplayX + dogXDistance/30;
+    targetImageDisplayY = targetImageDisplayY + dogYDistance/30;
+    image(targetImageDisplay,targetImageDisplayX,targetImageDisplayY);
+    //CONFETTI CANNON WOOOOOOOOOO
+    confettiCanonX = confettiCanonX + xDistance/100;
+    confettiCanonY = confettiCanonY + yDistance/100;
+    image(confettiCanon,confettiCanonX,confettiCanonY);
   }
   //have sausage doggo successfully never appear behind interface element
   while(targetX < width/19 && targetY < height/5){
