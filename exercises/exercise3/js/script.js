@@ -114,7 +114,7 @@ function setup() {
   targetY = random(0,height);
   image(targetImage,targetX,targetY);
   // And draw it (this means it will always be on top)
-  //hey binch u need to fix this later
+  //added square that allows u to show image of doggo to find
   targetImageDisplayX = width/8.5;
   targetImageDisplayY = height/9;
   rectMode(CORNERS);
@@ -124,7 +124,12 @@ function setup() {
   rect(300,0,width/19,height/5);
   imageMode(CENTER);
   image(targetImageDisplay,targetImageDisplayX,targetImageDisplayY);
-  
+  //added text that says what you need to find
+  textAlign(CENTER);
+  fill("#ff9000");
+  textSize(15);
+  text('HAVE YOU SEEN THIS DOG?',width/8.2,height/19);
+
 }
 
 function draw() {
@@ -143,8 +148,32 @@ function draw() {
     strokeWeight(10);
     ellipse(targetX,targetY,targetImage.width,targetImage.height);
   }
+  //me trying to work out how to not get doggo to not show behind rectangle
+  //while(gameOver = false){
+    //if (targetX = rect()){
+      //targetX = random(0,width);
+      //targetY = random(0,height);
+    //}
+    //if (targetY = rect()){
+      //targetX = random(0,width);
+      //targetY = random(0,height);
+    //}
+    if (gameOver) {
+      // Prepare our typography
+      textFont("Helvetica");
+      textSize(128);
+      textAlign(CENTER,CENTER);
+      noStroke();
+      fill(random(255));
+      // Tell them they won!
+      text("YOU WINNED!",width/2,height/2);
 
-}
+      noFill();
+      stroke(random(255));
+      strokeWeight(10);
+      ellipse(targetX,targetY,targetImage.width,targetImage.height);
+    }
+  }
 
 // mousePressed()
 //
