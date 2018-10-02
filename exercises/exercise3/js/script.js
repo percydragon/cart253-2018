@@ -242,7 +242,7 @@ function rectanglePosition() {
   // And draw it (this means it will always be on top)
   //added square that allows u to show image of doggo to find
   targetImageDisplayX = width/8.2;
-  targetImageDisplayY = height/8.2;
+  targetImageDisplayY = height/7.5;
   strokeJoin(ROUND);
   strokeWeight(4);
   stroke("#000");
@@ -254,6 +254,6 @@ function rectanglePosition() {
   textAlign(CENTER);
   fill("#ff9000");
   textSize(25);
-  text('HAVE YOU SEEN THIS DOG?',width/7.9,height/19);
+  text('HAVE YOU SEEN THIS DOG?',width/7.8,height/19);
 
 }
