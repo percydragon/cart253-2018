@@ -1,6 +1,6 @@
 /******************************************************************************
 Where's Sausage Dog?
-by Pippin Barr
+by Percy Dragon
 
 An algorithmic version of a Where's Wally searching game where you
 need to click on the sausage dog you're searching for in amongst all
@@ -31,6 +31,31 @@ var decoyImage7;
 var decoyImage8;
 var decoyImage9;
 var decoyImage10;
+
+//randomizing sizesW
+var decoyImage1Size;
+var decoyImage2Size;
+var decoyImage3Size;
+var decoyImage4Size;
+var decoyImage5Size;
+var decoyImage6Size;
+var decoyImage7Size;
+var decoyImage8Size;
+var decoyImage9Size;
+var decoyImage10Size;
+
+//randomizing sizesH
+var decoyImage1SizeH;
+var decoyImage2SizeH;
+var decoyImage3SizeH;
+var decoyImage4SizeH;
+var decoyImage5SizeH;
+var decoyImage6SizeH;
+var decoyImage7SizeH;
+var decoyImage8SizeH;
+var decoyImage9SizeH;
+var decoyImage10SizeH;
+
 
 // The number of decoys to show on the screen, randomly
 // chosen from the decoy images
@@ -71,6 +96,27 @@ function setup() {
   createCanvas(windowWidth,windowHeight);
   background("#ffff00");
   imageMode(CENTER);
+  decoyImage1Size = random(1,800);
+  decoyImage2Size = random(1,800);
+  decoyImage3Size = random(1,800);
+  decoyImage4Size = random(1,800);
+  decoyImage5Size = random(1,800);
+  decoyImage6Size = random(1,800);
+  decoyImage7Size = random(1,800);
+  decoyImage8Size = random(1,800);
+  decoyImage9Size = random(1,800);
+  decoyImage10Size = random(1,800);
+
+  decoyImage1SizeH = random(1,800);
+  decoyImage2SizeH = random(1,800);
+  decoyImage3SizeH = random(1,800);
+  decoyImage4SizeH = random(1,800);
+  decoyImage5SizeH = random(1,800);
+  decoyImage6SizeH = random(1,800);
+  decoyImage7SizeH = random(1,800);
+  decoyImage8SizeH = random(1,800);
+  decoyImage9SizeH = random(1,800);
+  decoyImage10SizeH = random(1,800);
 
   // Use a for loop to draw as many decoys as we need
   for (var i = 0; i < numDecoys; i++) {
@@ -83,41 +129,44 @@ function setup() {
     // images, each with a 10% chance of being shown
     // We'll talk more about this nice quality of random soon enough
     if (r < 0.1) {
-      image(decoyImage1,x,y);
+      image(decoyImage1,x,y,decoyImage1Size,decoyImage1SizeH);
     }
     else if (r < 0.2) {
-      image(decoyImage2,x,y);
+      image(decoyImage2,x,y,decoyImage2Size,decoyImage2SizeH);
     }
     else if (r < 0.3) {
-      image(decoyImage3,x,y);
+      image(decoyImage3,x,y,decoyImage3Size,decoyImage3SizeH);
     }
     else if (r < 0.4) {
-      image(decoyImage4,x,y);
+      image(decoyImage4,x,y,decoyImage4Size,decoyImage4SizeH);
     }
     else if (r < 0.5) {
-      image(decoyImage5,x,y);
+      image(decoyImage5,x,y,decoyImage5Size,decoyImage5SizeH);
     }
     else if (r < 0.6) {
-      image(decoyImage6,x,y);
+      image(decoyImage6,x,y,decoyImage6Size,decoyImage6SizeH);
     }
     else if (r < 0.7) {
-      image(decoyImage7,x,y);
+      image(decoyImage7,x,y,decoyImage7Size,decoyImage7SizeH);
     }
     else if (r < 0.8) {
-      image(decoyImage8,x,y);
+      image(decoyImage8,x,y,decoyImage8Size,decoyImage8SizeH);
     }
     else if (r < 0.9) {
-      image(decoyImage9,x,y);
+      image(decoyImage9,x,y,decoyImage9Size,decoyImage9SizeH);
     }
     else if (r < 1.0) {
-      image(decoyImage10,x,y);
+      image(decoyImage10,x,y,decoyImage10Size,decoyImage10SizeH);
     }
   }
 
   // Once we've displayed all decoys, we choose a location for the target
   targetX = random(0,width);
   targetY = random(0,height);
-  image(targetImage,targetX,targetY);
+  //randomizing size of target image
+  var targetXSize = random(1,800);
+  var targetYSize = random(1,800);
+  image(targetImage,targetX,targetY,targetXSize,targetYSize);
   // And draw it (this means it will always be on top)
   //added square that allows u to show image of doggo to find
   targetImageDisplayX = width/8.5;
@@ -133,7 +182,7 @@ function setup() {
   textAlign(CENTER);
   fill("#ff9000");
   textSize(15);
-  text('HAVE YOU SEEN THIS DOG?',width/8.2,height/19);
+  text('HAVE YOU SEEN THIS DOG?',width/7.5,height/19);
 
   //adding confettiCanon
   confettiCanonX = width/2;
@@ -175,7 +224,7 @@ function draw() {
   while(targetX < width/19 && targetY < height/5){
     targetX = random(0,width);
     targetY = random(0,height);
-    image(targetImage,targetX,targetY);
+    image(targetImage,targetX,targetY,targetXSize,targetYSize);
   }
 
   }
