@@ -68,6 +68,8 @@ var confettiCanon;
 var confettiCanonX;
 var confettiCanonY;
 
+//adding awesome win music
+var winningSound;
 // preload()
 //
 // Loads the target and decoy images before the program starts
@@ -86,6 +88,9 @@ function preload() {
   decoyImage8 = loadImage("assets/images/animals-08.png");
   decoyImage9 = loadImage("assets/images/animals-09.png");
   decoyImage10 = loadImage("assets/images/animals-10.png");
+
+  //loading in SoundFile
+  winningSound = new Audio("assets/sounds/music.mp3");
 }
 
 // setup()
@@ -169,20 +174,7 @@ function setup() {
   image(targetImage,targetX,targetY,targetXSize,targetYSize);
   // And draw it (this means it will always be on top)
   //added square that allows u to show image of doggo to find
-  targetImageDisplayX = width/8.5;
-  targetImageDisplayY = height/9;
-  rectMode(CORNERS);
-  strokeJoin(ROUND);
-  stroke("#000");
-  fill("#979f50");
-  rect(300,0,width/19,height/5);
-  imageMode(CENTER);
-  image(targetImageDisplay,targetImageDisplayX,targetImageDisplayY);
-  //added text that says what you need to find
-  textAlign(CENTER);
-  fill("#ff9000");
-  textSize(15);
-  text('HAVE YOU SEEN THIS DOG?',width/7.5,height/19);
+  rectanglePosition();
 
   //adding confettiCanon
   confettiCanonX = width/2;
@@ -220,8 +212,10 @@ function draw() {
     confettiCanonY = confettiCanonY + yDistance/100;
     image(confettiCanon,confettiCanonX,confettiCanonY);
   }
+  //have function = variable
+  var interfaceElement = rectanglePosition();
   //have sausage doggo successfully never appear behind interface element
-  while(targetX < width/19 && targetY < height/5){
+  while(targetX < interfaceElement && targetY < interfaceElement){
     targetX = random(0,width);
     targetY = random(0,height);
     image(targetImage,targetX,targetY,targetXSize,targetYSize);
@@ -237,7 +231,29 @@ function mousePressed() {
   if (mouseX > targetX - targetImage.width/2 && mouseX < targetX + targetImage.width/2) {
     // Check if the mouse is also in the y range of the target
     if (mouseY > targetY - targetImage.height/2 && mouseY < targetY + targetImage.height/2) {
+      //add in victory music
+      winningSound.play();
       gameOver = true;
     }
   }
+}
+
+function rectanglePosition() {
+  // And draw it (this means it will always be on top)
+  //added square that allows u to show image of doggo to find
+  targetImageDisplayX = width/8.2;
+  targetImageDisplayY = height/8.2;
+  strokeJoin(ROUND);
+  strokeWeight(4);
+  stroke("#000");
+  fill("#979f50");
+  rect(1,1,400,200);
+  imageMode(CENTER);
+  image(targetImageDisplay,targetImageDisplayX,targetImageDisplayY);
+  //added text that says what you need to find
+  textAlign(CENTER);
+  fill("#ff9000");
+  textSize(25);
+  text('HAVE YOU SEEN THIS DOG?',width/7.9,height/19);
+
 }
