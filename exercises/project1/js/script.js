@@ -1,7 +1,7 @@
 /******************************************************
 
 Game - Chaser
-Pippin Barr
+Percy Dragon
 
 A simple game of cat and mouse.
 
