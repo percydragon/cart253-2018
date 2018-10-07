@@ -128,6 +128,26 @@ function handleInput() {
   else {
     playerVY = 0;
   }
+
+  //check for shift keys and adds sprint
+  if (keyIsDown(SHIFT)) {
+    if (keyIsDown(UP_ARROW)) {
+      playerVY = -playerMaxSpeed - 3;
+    }
+    else if (keyIsDown(DOWN_ARROW)) {
+      playerVY = playerMaxSpeed + 3;
+    }
+    else if (keyIsDown(RIGHT_ARROW)) {
+      playerVX = playerMaxSpeed + 3;
+    }
+    else if (keyIsDown(LEFT_ARROW)) {
+      playerVX = -playerMaxSpeed - 3;
+    }
+    else {
+      playerVY = 0;
+      playerVX = 0;
+    }
+  }
 }
 
 // movePlayer()
@@ -182,6 +202,12 @@ function checkEating() {
     // Reduce the prey health
     preyHealth = constrain(preyHealth - eatHealth,0,preyMaxHealth);
 
+    //check to see if player is sprinting
+    if (keyIsDown(SHIFT)) {
+      //make them loose health faster
+      playerHealth = constrain(playerHealth - eatHealth*2,0,playerMaxHealth);
+    }
+
     // Check if the prey died
     if (preyHealth === 0) {
       // Move the "new" prey to a random position
@@ -197,6 +223,7 @@ function checkEating() {
 
 // movePrey()
 //
+// so it looks like this needs to be altered with the noise function
 // Moves the prey based on random velocity changes
 function movePrey() {
   // Change the prey's velocity at random intervals
