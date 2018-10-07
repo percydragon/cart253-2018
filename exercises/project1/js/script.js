@@ -44,6 +44,9 @@ var eatHealth = 10;
 // Number of prey eaten during the game
 var preyEaten = 0;
 
+//creating perlin noise variables
+var tX;
+var tY;
 // setup()
 //
 // Sets up the basic elements of the game
@@ -65,6 +68,8 @@ function setupPrey() {
   preyVX = -preyMaxSpeed;
   preyVY = preyMaxSpeed;
   preyHealth = preyMaxHealth;
+  tX = random(1000);
+  tY = random(1000);
 }
 
 // setupPlayer()
@@ -87,6 +92,7 @@ function draw() {
   background(100,100,200);
 
   if (!gameOver) {
+
     handleInput();
 
     movePlayer();
@@ -211,8 +217,9 @@ function checkEating() {
     // Check if the prey died
     if (preyHealth === 0) {
       // Move the "new" prey to a random position
-      preyX = random(0,width);
-      preyY = random(0,height);
+      //the code was broken, so i'm attempting to fix it by changing the random to noise instead
+      preyX = width * noise(tX);
+      preyY = height * noise(tY);
       // Give it full health
       preyHealth = preyMaxHealth;
       // Track how many prey were eaten
@@ -226,17 +233,14 @@ function checkEating() {
 // so it looks like this needs to be altered with the noise function
 // Moves the prey based on random velocity changes
 function movePrey() {
-  // Change the prey's velocity at random intervals
-  // random() will be < 0.05 5% of the time, so the prey
-  // will change direction on 5% of frames
-  if (random() < 0.05) {
-    // Set velocity based on random values to get a new direction
-    // and speed of movement
-    // Use map() to convert from the 0-1 range of the random() function
-    // to the appropriate range of velocities for the prey
-    preyVX = map(random(),0,1,-preyMaxSpeed,preyMaxSpeed);
-    preyVY = map(random(),0,1,-preyMaxSpeed,preyMaxSpeed);
-  }
+
+
+  //creating the perlin noise function to move the prey
+  preyX = width * noise(tX);
+  preyY = height * noise(tY);
+
+  tY += 0.02
+  tX += 0.02
 
   // Update prey position based on velocity
   preyX += preyVX;
