@@ -16,10 +16,11 @@ var gameOver = false;
 // Player position, size, velocity
 var playerX;
 var playerY;
-var playerRadius = 25;
+var playerRadius = 20;
 var playerVX = 0;
 var playerVY = 0;
 var playerMaxSpeed = 2;
+var playerImage;
 // Player health
 var playerHealth;
 var playerMaxHealth = 255;
@@ -29,7 +30,7 @@ var playerFill = 50;
 // Prey position, size, velocity
 var preyX;
 var preyY;
-var preyRadius = 25;
+var preyRadius = 20;
 var preyVX;
 var preyVY;
 var preyMaxSpeed = 4;
@@ -44,14 +45,23 @@ var eatHealth = 10;
 // Number of prey eaten during the game
 var preyEaten = 0;
 
+//adding in prey image
+var preyImage;
+
 //creating perlin noise variables
 var tX;
 var tY;
 // setup()
 //
 // Sets up the basic elements of the game
+//im making the prey and player images so im loading them in here
+function preload() {
+  playerImage = loadImage("assets/images/mercy_presskit.png")
+  preyImage = loadImage("assets/images/Genji_Concept.png")
+
+}
 function setup() {
-  createCanvas(500,500);
+  createCanvas(700,700);
 
   noStroke();
 
@@ -68,8 +78,9 @@ function setupPrey() {
   preyVX = -preyMaxSpeed;
   preyVY = preyMaxSpeed;
   preyHealth = preyMaxHealth;
-  tX = random(1000);
-  tY = random(1000);
+  tX = random(2000);
+  tY = random(2000);
+
 }
 
 // setupPlayer()
@@ -239,8 +250,12 @@ function movePrey() {
   preyX = width * noise(tX);
   preyY = height * noise(tY);
 
-  tY += 0.02
-  tX += 0.02
+  tY += 0.05
+  tX += 0.05
+  if (preyEaten > 10) {
+    tY += 0.00001
+    tX += 0.00001
+  }
 
   // Update prey position based on velocity
   preyX += preyVX;
@@ -267,7 +282,7 @@ function movePrey() {
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
   fill(preyFill,preyHealth);
-  ellipse(preyX,preyY,preyRadius*2);
+  image(preyImage,preyX,preyY,preyRadius*2,playerRadius*2);
 }
 
 // drawPlayer()
@@ -275,7 +290,7 @@ function drawPrey() {
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
   fill(playerFill,playerHealth);
-  ellipse(playerX,playerY,playerRadius*2);
+  image(playerImage,playerX,playerY,playerRadius*2,playerRadius*2);
 }
 
 // showGameOver()
