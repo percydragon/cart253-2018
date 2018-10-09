@@ -13,6 +13,9 @@ sprinting, random movement, screen wrap.
 // Track whether the game is over
 var gameOver = false;
 
+//adding ana voiceline
+var anaNano;
+
 //loading in background image
 var eichenwaldCastle;
 
@@ -66,6 +69,9 @@ var preyImage;
 var tX;
 var tY;
 
+//loading in ana who nanoboosts you
+var anaSniper;
+
 //adding font
 var overwatchFont;
 
@@ -86,10 +92,15 @@ function preload() {
   mercyVoiceLine4 = new Audio("assets/sounds/Right_beside_you.mp3");
   mercyVoiceLine5 = new Audio("assets/sounds/Patching_you_up.mp3");
 
+  //ana image
+  anaSniper = loadImage("assets/images/ana.png");
+
   //genji i need healing
   iNeedHealing = new Audio("assets/sounds/need_healing.mp3");
 
   mercyGameOver = new Audio("assets/sounds/why_bother.mp3");
+
+  anaNano = new Audio("assets/sounds/nano.wav");
 
   //font
   overwatchFont = loadFont("assets/fonts/bignoodletoo.ttf");
@@ -159,6 +170,10 @@ function draw() {
 //
 // Checks arrow keys and adjusts player velocity accordingly
 function handleInput() {
+  //adding in extra speed for nanoboost
+  if (preyEaten > 10) {
+    playerMaxSpeed = 4;
+  }
   // Check for horizontal movement
   if (keyIsDown(LEFT_ARROW)) {
     playerVX = -playerMaxSpeed;
@@ -184,16 +199,16 @@ function handleInput() {
   //check for shift keys and adds sprint
   if (keyIsDown(SHIFT)) {
     if (keyIsDown(UP_ARROW)) {
-      playerVY = -playerMaxSpeed - 5;
+      playerVY = -playerMaxSpeed - 10;
     }
     else if (keyIsDown(DOWN_ARROW)) {
-      playerVY = playerMaxSpeed + 5;
+      playerVY = playerMaxSpeed + 10;
     }
     else if (keyIsDown(RIGHT_ARROW)) {
-      playerVX = playerMaxSpeed + 5;
+      playerVX = playerMaxSpeed + 10;
     }
     else if (keyIsDown(LEFT_ARROW)) {
-      playerVX = -playerMaxSpeed - 5;
+      playerVX = -playerMaxSpeed - 10;
     }
     else {
       playerVY = 0;
@@ -268,7 +283,7 @@ function checkEating() {
     //check to see if player is sprinting
   if (keyIsDown(SHIFT)) {
       //make them loose health faster
-    playerHealth = constrain(playerHealth - eatHealth*2,0,playerMaxHealth);
+    playerHealth = constrain(playerHealth - (eatHealth*1.5),0,playerMaxHealth);
   }
 
     // Check if the prey died
@@ -300,11 +315,18 @@ function movePrey() {
   tY += 0.05
   tX += 0.05
   if (preyEaten > 10) {
-    tY += 0.00001
-    tX += 0.00001
-    playerRadius = 15;
-    preyRadius = 20;
+    tY += 0.001
+    tX += 0.001
+    playerRadius = 20;
+    preyRadius = 25;
+    image(anaSniper,25,25,100,100);
+  }
 
+//trying to add in ana nanoboost VL
+//but when I try to get it to not loop, it doesn't work?????
+  if (preyEaten > 10) {
+    console.log("meme")
+    anaNano.play();
   }
 
   // Update prey position based on velocity
@@ -332,17 +354,25 @@ function movePrey() {
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
   //attempting to have images fade, but not exactly succeeding.
-  alpha(preyHealth)
+  push();
+  tint(255,preyHealth);
   image(preyImage,preyX,preyY,preyRadius*2,preyRadius*2);
+  pop();
 }
 
 // drawPlayer()
 //
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
-  //attempting to have the images fade, but not exactly succeeding.
-  alpha(playerHealth);
+  //attempting to have the images fade, but not exactly succeeding
+  push();
+  tint(255,playerHealth);
   image(playerImage,playerX,playerY,playerRadius*2,playerRadius*2);
+  if (preyEaten > 10) {
+    tint(25, 205, 255, playerHealth);
+    image(playerImage,playerX,playerY,playerRadius*2,playerRadius*2);
+  }
+  pop();
 }
 
 // showGameOver()
@@ -366,23 +396,23 @@ function showGameOver() {
 function randomVoiceLines() {
   var r = random();
 
-  if (r < 0.1) {
+  if (r < 0.09) {
     mercyVoiceLine1.play();
   }
 
-  else if (0.1 < r < 0.3) {
+  else if (0.1 < r < 0.29) {
     mercyVoiceLine2.play();
   }
 
-  else if (0.3 < r < 0.5) {
+  else if (0.3 < r < 0.49) {
     mercyVoiceLine3.play();
   }
 
-  else if (0.5 < r < 0.7) {
+  else if (0.5 < r < 0.69) {
     mercyVoiceLine4.play();
   }
 
-  else if ( 0.7 < r < 0.9) {
+  else if ( 0.7 < r < 0.99) {
     mercyVoiceLine5.play();
   }
 }
