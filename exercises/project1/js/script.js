@@ -13,10 +13,24 @@ sprinting, random movement, screen wrap.
 // Track whether the game is over
 var gameOver = false;
 
+//loading in background image
+var eichenwaldCastle;
+
+//loading in sound
+var healingMercy;
+var mercyVoiceLine1;
+var mercyVoiceLine2;
+var mercyVoiceLine3;
+var mercyVoiceLine4;
+var mercyVoiceLine5;
+var mercyGameOver;
+
+var iNeedHealing;
+
 // Player position, size, velocity
 var playerX;
 var playerY;
-var playerRadius = 20;
+var playerRadius = 30;
 var playerVX = 0;
 var playerVY = 0;
 var playerMaxSpeed = 2;
@@ -30,7 +44,7 @@ var playerFill = 50;
 // Prey position, size, velocity
 var preyX;
 var preyY;
-var preyRadius = 20;
+var preyRadius = 30;
 var preyVX;
 var preyVY;
 var preyMaxSpeed = 4;
@@ -56,8 +70,19 @@ var tY;
 // Sets up the basic elements of the game
 //im making the prey and player images so im loading them in here
 function preload() {
-  playerImage = loadImage("assets/images/mercy_presskit.png")
-  preyImage = loadImage("assets/images/Genji_Concept.png")
+  playerImage = loadImage("assets/images/mercy_presskit.png");
+  preyImage = loadImage("assets/images/Genji_Concept.png");
+  eichenwaldCastle = loadImage("assets/images/Castle_05.png");
+
+  //loading audio
+  healingMercy = new Audio("assets/sounds/healing_SFX.mp3");
+  mercyVoiceLine1 = new Audio("assets/sounds/Did_someone_call_a_doctor.mp3");
+  mercyVoiceLine2 = new Audio("assets/sounds/takingcare.mp3");
+  mercyVoiceLine3 = new Audio("assets/sounds/german_mercy.mp3");
+  mercyVoiceLine4 = new Audio("assets/sounds/Right_beside_you.mp3");
+  mercyVoiceLine5 = new Audio("assets/sounds/Patching_you_up.mp3");
+
+  iNeedHealing = new Audio("assets/sounds/need_healing.mp3");
 
 }
 function setup() {
@@ -100,7 +125,7 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-  background(100,100,200);
+  background(eichenwaldCastle);
 
   if (!gameOver) {
 
@@ -219,23 +244,32 @@ function checkEating() {
     // Reduce the prey health
     preyHealth = constrain(preyHealth - eatHealth,0,preyMaxHealth);
 
-    //check to see if player is sprinting
-    if (keyIsDown(SHIFT)) {
-      //make them loose health faster
-      playerHealth = constrain(playerHealth - eatHealth*2,0,playerMaxHealth);
+    healingMercy.play();
+    iNeedHealing.pause();
+  }
+
+    else {
+      iNeedHealing.play();
+      healingMercy.pause();
+
     }
 
+    //check to see if player is sprinting
+  if (keyIsDown(SHIFT)) {
+      //make them loose health faster
+    playerHealth = constrain(playerHealth - eatHealth*2,0,playerMaxHealth);
+  }
+
     // Check if the prey died
-    if (preyHealth === 0) {
-      // Move the "new" prey to a random position
-      //the code was broken, so i'm attempting to fix it by changing the random to noise instead
-      preyX = width * noise(tX);
-      preyY = height * noise(tY);
-      // Give it full health
-      preyHealth = preyMaxHealth;
-      // Track how many prey were eaten
-      preyEaten++;
-    }
+  if (preyHealth === 0) {
+    // Move the "new" prey to a random position
+    //the code was broken, so i'm attempting to fix it by changing the random to noise instead
+    preyX = width * noise(tX);
+    preyY = height * noise(tY);
+    // Give it full health
+    preyHealth = preyMaxHealth;
+    // Track how many prey were eaten
+    preyEaten++;
   }
 }
 
@@ -304,4 +338,8 @@ function showGameOver() {
   gameOverText += "You ate " + preyEaten + " prey\n";
   gameOverText += "before you died."
   text(gameOverText,width/2,height/2);
+}
+
+function randomVoiceLines() {
+
 }
