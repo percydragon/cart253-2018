@@ -92,7 +92,7 @@ function draw() {
   avatarVX = 0;
   avatarVY = 0;
   // adding in dodge numbers text
-  text("You've dodged " + dodges + " time(s)!", width/1.95, height/16);
+  text("You've dodged " + dodges + " time(s)!", width/2, height/16);
 
   // Check which keys are down and set the avatar's velocity based on its
   // speed appropriately

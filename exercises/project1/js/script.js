@@ -147,10 +147,10 @@ function setupPlayer() {
 // When the game is over, shows the game over screen.
 function draw() {
   background(eichenwaldCastle);
-
   if (!gameOver) {
 
     handleInput();
+    explanationText();
 
     movePlayer();
     movePrey();
@@ -298,6 +298,13 @@ function checkEating() {
     preyHealth = preyMaxHealth;
     // Track how many prey were eaten
     preyEaten++;
+
+
+    //trying to add in ana nanoboost VL
+    //but when I try to get it to not loop, it doesn't work?????
+      if (preyEaten === 11) {
+        anaNano.play();
+      }
   }
 }
 
@@ -322,12 +329,6 @@ function movePrey() {
     image(anaSniper,25,25,100,100);
   }
 
-//trying to add in ana nanoboost VL
-//but when I try to get it to not loop, it doesn't work?????
-  if (preyEaten > 10) {
-    console.log("meme")
-    anaNano.play();
-  }
 
   // Update prey position based on velocity
   preyX += preyVX;
@@ -355,7 +356,7 @@ function movePrey() {
 function drawPrey() {
   //attempting to have images fade, but not exactly succeeding.
   push();
-  tint(255,preyHealth);
+  tint(255,preyHealth+155);
   image(preyImage,preyX,preyY,preyRadius*2,preyRadius*2);
   pop();
 }
@@ -415,4 +416,12 @@ function randomVoiceLines() {
   else if ( 0.7 < r < 0.99) {
     mercyVoiceLine5.play();
   }
+}
+
+function explanationText() {
+  textSize(45);
+  textFont(overwatchFont);
+  fill(244, 176, 66);
+  stroke(0);
+  text("Genji needs healing!", width/3.5, height/14);
 }
