@@ -21,6 +21,13 @@ var ball = {
   speed: 5
 }
 
+// NEW //
+// NOTE adding in scoring system for both rightPaddle and leftPaddle
+
+var leftScore = 0;
+var rightScore = 0;
+// END NEW //
+
 // PADDLES
 
 // How far in from the walls the paddles should be drawn on x
@@ -262,6 +269,17 @@ function handleBallOffScreen() {
     // position is reset.
     // This is where we would count points etc!
   }
+  ///// NEW /////
+  if (ballRight < 0) {
+    leftScore += 1;
+    console.log(leftScore);
+  }
+
+  if (ballLeft > width) {
+    rightScore += 1;
+    console.log(rightScore);
+  }
+  // END NEW //
 }
 
 // displayBall()
