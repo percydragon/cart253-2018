@@ -8,6 +8,11 @@
 var bgColor = 0;
 var fgColor = 255;
 
+// NEW //
+var colourRight = 255;
+var colourLeft = 255;
+// END NEW //
+
 // BALL
 
 // Basic definition of a ball object with its key properties of
@@ -45,6 +50,7 @@ var leftPaddle = {
   vx: 0,
   vy: 0,
   speed: 5,
+  color: 255,
   upKeyCode: 87, // The key code for W
   downKeyCode: 83 // The key code for S
 }
@@ -61,6 +67,7 @@ var rightPaddle = {
   vx: 0,
   vy: 0,
   speed: 5,
+  color: 255,
   upKeyCode: 38, // The key code for the UP ARROW
   downKeyCode: 40 // The key code for the DOWN ARROW
 }
@@ -146,6 +153,9 @@ function draw() {
   displayPaddle(leftPaddle);
   displayPaddle(rightPaddle);
   displayBall();
+
+  // NEW //
+  // END NEW //
 }
 
 
@@ -264,20 +274,35 @@ function handleBallOffScreen() {
     // If it went off either side, reset it to the centre
     ball.x = width/2;
     ball.y = height/2;
+    // NEW //
+    updateScore();
+    // END NEW //
+
     // NOTE that we don't change its velocity here so it just
     // carries on moving with the same velocity after its
     // position is reset.
     // This is where we would count points etc!
   }
+
+/* /// DEBOUNCING
+you need a var to determine whether one can score
+if (canscore) {
+  canscore is false
+  score++
+}
+
+when ball is respawned => canscore = true
+*/
+
   ///// NEW /////
-  if (ballRight < 0) {
+  if (ballRight > width) {
     leftScore += 1;
-    console.log(leftScore);
+    //console.log(leftScore);
   }
 
-  if (ballLeft > width) {
+  if (ballLeft < 0) {
     rightScore += 1;
-    console.log(rightScore);
+    //console.log(rightScore);
   }
   // END NEW //
 }
@@ -286,6 +311,7 @@ function handleBallOffScreen() {
 //
 // Draws ball on screen based on its properties
 function displayBall() {
+
   rect(ball.x,ball.y,ball.size,ball.size);
 }
 
@@ -293,5 +319,33 @@ function displayBall() {
 //
 // Draws the specified paddle on screen based on its properties
 function displayPaddle(paddle) {
+  // fill here
+  // NEW //
+  console.log(colourLeft, colourRight);
+  push();
+  fill(paddle.color);
+  // END NEW //
   rect(paddle.x,paddle.y,paddle.w,paddle.h);
+  pop();
+}
+// NEW //
+// NOTE adding in function that shows player how score increased + adds stuff
+function updateScore() {
+
+  if (rightScore > 0) {
+    rightPaddle.speed += 10;
+    rightPaddle.speed = constrain(rightPaddle.speed,0,15);
+    //rightPaddle.vx = constrain(rightPaddle.vx,rightPaddle.speed,17);
+    //print(rigthPaddle.vx);
+    //rightPaddle.vy = constrain(rightPaddle.vy,rightPaddle.speed,17);
+    rightPaddle.color = rightPaddle.color - rightScore
+  }
+  if (leftScore > 0) {
+    leftPaddle.speed += 15;
+    //leftPaddle.speed = constrain(leftPaddle.vx,leftPaddle.speed,17);
+    //leftPaddle.speed = constrain(leftPaddle.vy,leftPaddle.speed,100);
+    leftPaddle.speed = constrain(rightPaddle.speed,0,15);
+    leftPaddle.color = leftPaddle.color - leftScore
+
+    }
 }
