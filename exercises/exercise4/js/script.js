@@ -24,7 +24,7 @@ var ball = {
   vx: 0,
   vy: 0,
   speed: 5
-}
+};
 
 // NEW //
 // NOTE adding in scoring system for both rightPaddle and leftPaddle
@@ -53,7 +53,7 @@ var leftPaddle = {
   color: 255,
   upKeyCode: 87, // The key code for W
   downKeyCode: 83 // The key code for S
-}
+};
 
 // RIGHT PADDLE
 
@@ -70,11 +70,13 @@ var rightPaddle = {
   color: 255,
   upKeyCode: 38, // The key code for the UP ARROW
   downKeyCode: 40 // The key code for the DOWN ARROW
-}
+};
 
 // A variable to hold the beep sound we will play on bouncing
 var beepSFX;
 
+
+// Never used
 // preload()
 //
 // Loads the beep audio for the sound of bouncing
@@ -87,8 +89,10 @@ function preload() {
 // Creates the canvas, sets up the drawing modes,
 // Sets initial values for paddle and ball positions
 // and velocities.
+//Setup might be called but never used
 function setup() {
   // Create canvas and set drawing modes
+  //These methods are not defined
   createCanvas(640,480);
   rectMode(CENTER);
   noStroke();
@@ -101,6 +105,8 @@ function setup() {
 // setupPaddles()
 //
 // Sets the positions of the two paddles
+
+//Height and width is not defined anywhere!????
 function setupPaddles() {
   // Initialise the left paddle
   leftPaddle.x = paddleInset;
@@ -124,8 +130,10 @@ function setupBall() {
 // draw()
 //
 // Calls the appropriate functions to run the game
+//Never used 
 function draw() {
   // Fill the background
+  //Not defined
   background(bgColor);
 
   // Handle input
