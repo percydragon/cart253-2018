@@ -27,7 +27,7 @@ var ball = {
 }
 
 // NEW //
-// NOTE adding in scoring system for both rightPaddle and leftPaddle
+// NOTE adding in scoring system for both rightPaddle and leftPaddle and scored flag
 
 var leftScore = 0;
 var rightScore = 0;
@@ -272,10 +272,13 @@ function handleBallOffScreen() {
   // Check for ball going off the sides
   if (ballRight < 0 || ballLeft > width) {
     // If it went off either side, reset it to the centre
+    var leftScored = false;
+    var rightScored = false;
     ball.x = width/2;
     ball.y = height/2;
     // NEW //
-    updateScore();
+    updateScoreRight(ballLeft);
+    updateScoreLeft(ballRight);
     // END NEW //
 
     // NOTE that we don't change its velocity here so it just
@@ -283,7 +286,6 @@ function handleBallOffScreen() {
     // position is reset.
     // This is where we would count points etc!
   }
-
 /* /// DEBOUNCING
 you need a var to determine whether one can score
 if (canscore) {
@@ -295,15 +297,6 @@ when ball is respawned => canscore = true
 */
 
   ///// NEW /////
-  if (ballRight > width) {
-    leftScore += 1;
-    //console.log(leftScore);
-  }
-
-  if (ballLeft < 0) {
-    rightScore += 1;
-    //console.log(rightScore);
-  }
   // END NEW //
 }
 
@@ -321,7 +314,6 @@ function displayBall() {
 function displayPaddle(paddle) {
   // fill here
   // NEW //
-  console.log(colourLeft, colourRight);
   push();
   fill(paddle.color);
   // END NEW //
@@ -330,22 +322,47 @@ function displayPaddle(paddle) {
 }
 // NEW //
 // NOTE adding in function that shows player how score increased + adds stuff
-function updateScore() {
+function updateScoreRight(ballLeft) {
+  //var ballLeft = ball.x - ball.size/2;
+  //if (ballLeft < 0) {
+  if (ballLeft < 0) {
+    rightScore++;
+    var rightScored = true
+    }
 
-  if (rightScore > 0) {
-    rightPaddle.speed += 10;
-    rightPaddle.speed = constrain(rightPaddle.speed,0,15);
-    //rightPaddle.vx = constrain(rightPaddle.vx,rightPaddle.speed,17);
-    //print(rigthPaddle.vx);
-    //rightPaddle.vy = constrain(rightPaddle.vy,rightPaddle.speed,17);
-    rightPaddle.color = rightPaddle.color - rightScore
+    if (rightScored) {
+      rightPaddle.speed += 2;
+      rightPaddle.speed = constrain(rightPaddle.speed,0,15);
+      //rightPaddle.vx = constrain(rightPaddle.vx,rightPaddle.speed,17);
+      //print(rigthPaddle.vx);
+      //rightPaddle.vy = constrain(rightPaddle.vy,rightPaddle.speed,17);
+      rightPaddle.color = constrain(rightPaddle.color-rightScore,0,255);
+      console.log(rightPaddle.color, "right");
+    }
+
+
+      // NOTE so it looks like that the player who scored first, but
+      //didn't make a score a second time keeps loosing -5 to their color,
+      //so what might be happening is that every single frame it does it,
+  //}
   }
-  if (leftScore > 0) {
-    leftPaddle.speed += 15;
-    //leftPaddle.speed = constrain(leftPaddle.vx,leftPaddle.speed,17);
-    //leftPaddle.speed = constrain(leftPaddle.vy,leftPaddle.speed,100);
-    leftPaddle.speed = constrain(rightPaddle.speed,0,15);
-    leftPaddle.color = leftPaddle.color - leftScore
+function updateScoreLeft(ballRight) {
+  //var ballRight = ball.x + ball.size/2;
+  //if (ballRight > width) {
+
+  if (ballRight > width) {
+    leftScore++;
+    var leftScored = true
 
     }
+    if (leftScored) {
+      leftPaddle.speed += 2;
+      //leftPaddle.speed = constrain(leftPaddle.vx,leftPaddle.speed,17);
+      //leftPaddle.speed = constrain(leftPaddle.vy,leftPaddle.speed,100);
+      leftPaddle.speed = constrain(leftPaddle.speed,0,15);
+      leftPaddle.color = constrain(leftPaddle.color - leftScore,0,255);
+      console.log(leftPaddle.color, "left");
+  }
+
+//}
 }
