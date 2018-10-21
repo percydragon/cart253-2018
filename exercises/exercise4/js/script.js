@@ -155,6 +155,7 @@ function draw() {
   displayBall();
 
   // NEW //
+  resetBall();
   // END NEW //
 }
 
@@ -296,8 +297,6 @@ if (canscore) {
 when ball is respawned => canscore = true
 */
 
-  ///// NEW /////
-  // END NEW //
 }
 
 // displayBall()
@@ -327,7 +326,11 @@ function updateScoreRight(ballLeft) {
   //if (ballLeft < 0) {
   if (ballLeft < 0) {
     rightScore++;
-    var rightScored = true
+    var rightScored = true;
+    ball.speed++
+    ball.vx = ball.speed;
+    ball.vy = ball.speed;
+    console.log(ball.speed, "right");
     }
 
     if (rightScored) {
@@ -337,7 +340,6 @@ function updateScoreRight(ballLeft) {
       //print(rigthPaddle.vx);
       //rightPaddle.vy = constrain(rightPaddle.vy,rightPaddle.speed,17);
       rightPaddle.color = constrain(rightPaddle.color-rightScore,0,255);
-      console.log(rightPaddle.color, "right");
     }
 
 
@@ -352,7 +354,11 @@ function updateScoreLeft(ballRight) {
 
   if (ballRight > width) {
     leftScore++;
-    var leftScored = true
+    ball.speed++;
+    ball.vx = -ball.speed;
+    ball.vy = -ball.speed;
+    console.log(ball.speed, "left");
+    var leftScored = true;
 
     }
     if (leftScored) {
@@ -361,8 +367,13 @@ function updateScoreLeft(ballRight) {
       //leftPaddle.speed = constrain(leftPaddle.vy,leftPaddle.speed,100);
       leftPaddle.speed = constrain(leftPaddle.speed,0,15);
       leftPaddle.color = constrain(leftPaddle.color - leftScore,0,255);
-      console.log(leftPaddle.color, "left");
   }
 
 //}
+}
+
+function resetBall() {
+  if (ball.speed === 30) {
+    ball.speed = 2;
+  }
 }
