@@ -11,6 +11,8 @@ var fgColor = 255;
 // NEW //
 var colourRight = 255;
 var colourLeft = 255;
+
+var sadMusic;
 // END NEW //
 
 // BALL
@@ -80,6 +82,7 @@ var beepSFX;
 // Loads the beep audio for the sound of bouncing
 function preload() {
   beepSFX = new Audio("assets/sounds/beep.wav");
+  sadMusic = new Audio("assets/sounds/funeral_march.mp3");
 }
 
 // setup()
@@ -90,6 +93,7 @@ function preload() {
 function setup() {
   // Create canvas and set drawing modes
   createCanvas(640,480);
+  background(bgColor);
   rectMode(CENTER);
   noStroke();
   fill(fgColor);
@@ -125,8 +129,7 @@ function setupBall() {
 //
 // Calls the appropriate functions to run the game
 function draw() {
-  // Fill the background
-  background(bgColor);
+  sadMusic.play();
 
   // Handle input
   // Notice how we're using the SAME FUNCTION to handle the input
@@ -156,6 +159,8 @@ function draw() {
 
   // NEW //
   resetBall();
+  handlePaddleWrap(leftPaddle);
+  handlePaddleWrap(rightPaddle);
   // END NEW //
 }
 
@@ -303,7 +308,9 @@ when ball is respawned => canscore = true
 //
 // Draws ball on screen based on its properties
 function displayBall() {
-
+  // NEW //
+  fill(random(255));
+  // END NEW //
   rect(ball.x,ball.y,ball.size,ball.size);
 }
 
@@ -375,5 +382,15 @@ function updateScoreLeft(ballRight) {
 function resetBall() {
   if (ball.speed === 30) {
     ball.speed = 2;
+  }
+}
+// NOTE i just screen wrapped it bc it was getting REALLY annoying when the paddle just vanished
+// into nothingness
+function handlePaddleWrap(paddle) {
+  if (paddle.y < 0 ) {
+    paddle.y = height;
+  }
+  if (paddle.y > height) {
+    paddle.y = 0;
   }
 }
