@@ -1,5 +1,5 @@
 // Basic OO Pong
-// by Pippin Barr
+// by Percy Dragon
 //
 // A primitive implementation of Pong with no scoring system
 // just the ability to play the game with the keyboard.
