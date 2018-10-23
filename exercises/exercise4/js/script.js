@@ -13,6 +13,9 @@ var colourRight = 255;
 var colourLeft = 255;
 
 var sadMusic;
+
+var leftScored;
+var rightScored;
 // END NEW //
 
 // BALL
