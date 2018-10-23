@@ -394,3 +394,4 @@ function handlePaddleWrap(paddle) {
     paddle.y = 0;
   }
 }
+// END NEW //
