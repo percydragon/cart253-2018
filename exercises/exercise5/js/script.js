@@ -45,8 +45,13 @@ function preload() {
 
 function setup() {
   createCanvas(640,480);
+
+  // NEW //
+  background(0);
+  //END NEW //
+
   // Create a ball
-  ball = new Ball(width/2,height/2,5,5,10,5);
+  ball = new Ball(width/2,height/2,5,5,15,5);
   // Create the right paddle with UP and DOWN as controls
   rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW);
   // Create the left paddle with W and S as controls
@@ -60,10 +65,17 @@ function setup() {
 // and displays everything.
 function draw() {
   sadMusic.play();
-  background(0);
 
   leftPaddle.handleInput();
   rightPaddle.handleInput();
+
+  // NEW //
+
+  leftPaddle.handlePaddleWrap();
+  rightPaddle.handlePaddleWrap();
+
+  // END NEW //
+
 
   ball.update();
   leftPaddle.update();
@@ -74,8 +86,10 @@ function draw() {
   }
 
   // NEW //
+
   ball.resetBallSpeed();
   ball.handleWallCollision();
+
   // END NEW //
 
   ball.handleCollision(leftPaddle);

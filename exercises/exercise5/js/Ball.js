@@ -44,11 +44,11 @@ Ball.prototype.isOffScreen = function () {
   if (this.x + this.size < 0 || this.x > width) {
 
     // NEW //
-    var ballLeft = this.x - this.size/2;
-    var ballRight = this.x + this.size/2;
+    var ballLeft = this.x;
+    var ballRight = this.x + this.size;
 
-    var leftScored = false;
-    var rightScored = false;
+    leftScored = false;
+    rightScored = false;
     ball.updateScoreRightBall(ballLeft);
     ball.updateScoreLeftBall(ballRight);
     // END NEW //
@@ -64,7 +64,9 @@ Ball.prototype.isOffScreen = function () {
 //
 // Draw the ball as a rectangle on the screen
 Ball.prototype.display = function () {
-  fill(255);
+  // NEW //
+  fill(random(255));
+  // END NEW //
   rect(this.x,this.y,this.size,this.size);
 }
 
@@ -98,13 +100,13 @@ Ball.prototype.handleCollision = function(paddle) {
 // NOTE im adding in wall collision for the BEEPS
 
 Ball.prototype.handleWallCollision = function() {
-  var ballTop = this.y - this.size/2;
-  var ballBottom = this.y + this.size/2;
+  var ballTop = this.y;
+  var ballBottom = this.y + this.size;
 
   // Check for ball colliding with top and bottom
-  if (ballTop < 0 || ballBottom > height) {
+  if (ballTop === 0 || ballBottom === height) {
     // If it touched the top or bottom, reverse its vy
-    this.vy = -this.vy;
+    //this.vy = -this.vy;
     // Play our bouncing sound effect by rewinding and then playing
     beepSFX.currentTime = 0;
     beepSFX.play();
@@ -119,34 +121,42 @@ Ball.prototype.handleWallCollision = function() {
 //NOTE we are attempting to update the ball score with OOP
 
 Ball.prototype.updateScoreLeftBall = function(ballRight) {
-  var ballRight = this.x + this.size/2;
-
   if (ballRight > width) {
     leftScore++;
     this.speed++;
     this.vx = -this.speed;
     this.vy = -this.speed;
-    console.log(this.speed, "left");
-    var leftScored = true;
-
+    //console.log(this.speed, "left");
+    leftScored = true;
     }
+  if (leftScored) {
+    leftPaddle.speed += 2;
+    //leftPaddle.speed = constrain(leftPaddle.vx,leftPaddle.speed,17);
+    //leftPaddle.speed = constrain(leftPaddle.vy,leftPaddle.speed,100);
+    leftPaddle.speed = constrain(leftPaddle.speed,0,15);
+    leftPaddle.color = constrain(leftPaddle.color - leftScore,0,255);
+    console.log(leftPaddle.color, "left p");
+   }
 }
 
 Ball.prototype.updateScoreRightBall = function(ballLeft) {
-  var ballLeft = this.x - this.size/2;
   if (ballLeft < 0) {
     rightScore++;
-    var rightScored = true;
+    rightScored = true;
     this.speed++
     this.vx = this.speed;
     this.vy = this.speed;
-    console.log(this.speed, "right");
+    //console.log(this.speed, "right");
     }
+
+  if (rightScored) {
+    rightPaddle.speed += 2;
+    rightPaddle.speed = constrain(rightPaddle.speed,0,15);
+    rightPaddle.color = constrain(rightPaddle.color-rightScore,0,255);
+    console.log(rightPaddle.color, "right P");
+  }
 }
 
-// END NEW //
-
-// NEW //
 Ball.prototype.resetBallSpeed = function() {
   if (this.speed === 30) {
     this.speed = 2;

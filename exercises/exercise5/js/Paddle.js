@@ -16,6 +16,9 @@ function Paddle(x,y,w,h,speed,downKey,upKey) {
   this.speed = speed;
   this.downKey = downKey;
   this.upKey = upKey;
+  // NEW //
+  this.color = 255;
+  // END NEW //
 }
 
 // handleInput()
@@ -39,13 +42,32 @@ Paddle.prototype.handleInput = function() {
 // Constrain the resulting position to be within the canvas
 Paddle.prototype.update = function() {
   this.y += this.vy;
-  this.y = constrain(this.y,0,height-this.h);
+  // this.y = constrain(this.y,0,height-this.h);
 }
 
 // display()
 //
 // Draw the paddle as a rectangle on the screen
 Paddle.prototype.display = function() {
-  fill(255);
+  // NEW //
+  fill(this.color);
+  noStroke();
+  // END NEW //
   rect(this.x,this.y,this.w,this.h);
 }
+
+// NEW //
+
+// NOTE i just screen wrapped it bc it was getting REALLY annoying when the paddle just vanished
+// into nothingness
+
+Paddle.prototype.handlePaddleWrap = function() {
+  if (this.y < 0 ) {
+    this.y = height;
+  }
+  if (this.y > height) {
+    this.y = 0;
+  }
+}
+
+// END NEW //
