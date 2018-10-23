@@ -26,6 +26,9 @@ var colourLeft = 255;
 var sadMusic;
 var beepSFX;
 
+var leftScored;
+var rightScored;
+
 // END NEW //
 
 // setup()
@@ -56,8 +59,8 @@ function setup() {
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
-  background(0);
   sadMusic.play();
+  background(0);
 
   leftPaddle.handleInput();
   rightPaddle.handleInput();
@@ -69,6 +72,11 @@ function draw() {
   if (ball.isOffScreen()) {
     ball.reset();
   }
+
+  // NEW //
+  ball.resetBallSpeed();
+  ball.handleWallCollision();
+  // END NEW //
 
   ball.handleCollision(leftPaddle);
   ball.handleCollision(rightPaddle);

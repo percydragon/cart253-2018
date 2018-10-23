@@ -42,6 +42,17 @@ Ball.prototype.update = function () {
 Ball.prototype.isOffScreen = function () {
   // Check for going off screen and reset if so
   if (this.x + this.size < 0 || this.x > width) {
+
+    // NEW //
+    var ballLeft = this.x - this.size/2;
+    var ballRight = this.x + this.size/2;
+
+    var leftScored = false;
+    var rightScored = false;
+    ball.updateScoreRightBall(ballLeft);
+    ball.updateScoreLeftBall(ballRight);
+    // END NEW //
+
     return true;
   }
   else {
@@ -71,9 +82,78 @@ Ball.prototype.handleCollision = function(paddle) {
       this.y -= this.vy;
       // Reverse x velocity to bounce
       this.vx = -this.vx;
+
+      //NOTE FOR SHAME THE BEEPS WERE LEFT OUT SO IM ADDING THEM IN
+      // M Y S E L F
+
+      // NEW //
+      beepSFX.currentTime = 0;
+      beepSFX.play();
+      // END NEW //
     }
   }
 }
+
+// NEW //
+// NOTE im adding in wall collision for the BEEPS
+
+Ball.prototype.handleWallCollision = function() {
+  var ballTop = this.y - this.size/2;
+  var ballBottom = this.y + this.size/2;
+
+  // Check for ball colliding with top and bottom
+  if (ballTop < 0 || ballBottom > height) {
+    // If it touched the top or bottom, reverse its vy
+    this.vy = -this.vy;
+    // Play our bouncing sound effect by rewinding and then playing
+    beepSFX.currentTime = 0;
+    beepSFX.play();
+ }
+}
+
+// END NEW //
+
+
+// NEW //
+
+//NOTE we are attempting to update the ball score with OOP
+
+Ball.prototype.updateScoreLeftBall = function(ballRight) {
+  var ballRight = this.x + this.size/2;
+
+  if (ballRight > width) {
+    leftScore++;
+    this.speed++;
+    this.vx = -this.speed;
+    this.vy = -this.speed;
+    console.log(this.speed, "left");
+    var leftScored = true;
+
+    }
+}
+
+Ball.prototype.updateScoreRightBall = function(ballLeft) {
+  var ballLeft = this.x - this.size/2;
+  if (ballLeft < 0) {
+    rightScore++;
+    var rightScored = true;
+    this.speed++
+    this.vx = this.speed;
+    this.vy = this.speed;
+    console.log(this.speed, "right");
+    }
+}
+
+// END NEW //
+
+// NEW //
+Ball.prototype.resetBallSpeed = function() {
+  if (this.speed === 30) {
+    this.speed = 2;
+}
+}
+
+// END NEW //
 
 // reset()
 //
