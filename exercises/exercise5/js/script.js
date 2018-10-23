@@ -14,9 +14,32 @@ var ball;
 var leftPaddle;
 var rightPaddle;
 
+// NEW //
+// NOTE adding in scoring system for both rightPaddle and leftPaddle and scored flag
+
+var leftScore = 0;
+var rightScore = 0;
+
+var colourRight = 255;
+var colourLeft = 255;
+
+var sadMusic;
+var beepSFX;
+
+// END NEW //
+
 // setup()
 //
 // Creates the ball and paddles
+
+// NOTE loading in the SFX
+// NEW //
+function preload() {
+  beepSFX = new Audio("assets/sounds/beep.wav");
+  sadMusic = new Audio("assets/sounds/funeral_march.mp3");
+}
+// END NEW //
+
 function setup() {
   createCanvas(640,480);
   // Create a ball
@@ -34,6 +57,7 @@ function setup() {
 // and displays everything.
 function draw() {
   background(0);
+  sadMusic.play();
 
   leftPaddle.handleInput();
   rightPaddle.handleInput();
