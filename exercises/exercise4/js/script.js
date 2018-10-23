@@ -281,8 +281,8 @@ function handleBallOffScreen() {
   // Check for ball going off the sides
   if (ballRight < 0 || ballLeft > width) {
     // If it went off either side, reset it to the centre
-    var leftScored = false;
-    var rightScored = false;
+    leftScored = false;
+    rightScored = false;
     ball.x = width/2;
     ball.y = height/2;
     // NEW //
@@ -336,7 +336,7 @@ function updateScoreRight(ballLeft) {
   //if (ballLeft < 0) {
   if (ballLeft < 0) {
     rightScore++;
-    var rightScored = true;
+    rightScored = true;
     ball.speed++
     ball.vx = ball.speed;
     ball.vy = ball.speed;
@@ -368,7 +368,7 @@ function updateScoreLeft(ballRight) {
     ball.vx = -ball.speed;
     ball.vy = -ball.speed;
     console.log(ball.speed, "left");
-    var leftScored = true;
+    leftScored = true;
 
     }
     if (leftScored) {
