@@ -31,11 +31,12 @@ function Paddle(x,y,w,h,speed,downKey,upKey) {
 // appropriately
 //NOTE proto was written instead of prototype
 Paddle.prototype.handleInput = function() {
-  if (keyDown(upKey)) {
+  //NOTE both functions are written badly. It is keyIsDown and not keyDown
+  if (keyIsDown(upKey)) {
     //NOTE there shouldn't put a minus because you don't want to reverse the speed, so removing that minus
     this.vy = this.speed;
   }
-  else if (keyDown(downKey)) {
+  else if (keyIsDown(downKey)) {
     this.vy = -this.speed;
   }
 }
