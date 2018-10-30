@@ -55,5 +55,6 @@ Paddle.prototype.update = function() {
 //NOTE typo: display is written as disploy
 //NOTE syntax error: removed extra parenthisis for the function
 Paddle.prototype.display = function() {
-  rectangle(this.x,this.y,this.w,this.h);
+  //NOTE it's rect and not rectangle
+  rect(this.x,this.y,this.w,this.h);
 }
