@@ -55,5 +55,6 @@ function draw() {
 
   ball.display();
   leftPaddle.display();
-  rightPaddle.display(;
+  //NOTE missing parenthisis; syntax error
+  rightPaddle.display();
 }
