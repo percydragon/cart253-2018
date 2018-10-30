@@ -23,7 +23,8 @@ function Ball(x,y,vx,vy,size,speed) {
 // off left or right side.
 
 // NOTE was written faction instead of function
-Ball.prototype.updated = function () {
+//NOTE the function was written updated instead of update
+Ball.prototype.update = function () {
   // Update position with velocity
   this.x = this.vx;
   this.y += this.vy;
