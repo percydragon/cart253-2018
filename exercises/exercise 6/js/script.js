@@ -25,7 +25,8 @@ function setup() {
   fill(255);
   noStroke();
   // Create a ball
-  ball = new Ball(width/2,height/2,50,50,10,50);
+  //NOTE ball speed is absurd so im just changing it
+  ball = new Ball(width/2,height/2,5,5,10,5);
   // Create the right paddle with UP and DOWN as controls
   //NOTE it's written 600 instead of 60, so the paddle is LONG AF
   rightPaddle = new Paddle(width-10,height/2,10,60,10,UP_ARROW,DOWN_ARROW);
