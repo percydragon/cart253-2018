@@ -30,6 +30,8 @@ function setup() {
   // Keycodes 83 and 87 are W and S respectively
   //NOTE missing a parenthisis at the end
   leftPaddle = new Paddle(0,height/2,10,60,10,83,87);
+//NOTE added missing curly bracket to close the function
+}
 
 
 // draw()
