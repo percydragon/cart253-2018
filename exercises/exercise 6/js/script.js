@@ -21,6 +21,8 @@ var rightPaddle;
 function setup() {
   //NOTE wrote crateCanvas instead of createCanvas
   createCanvas(640,480);
+  //NOTE adding colour to ball and paddles
+  fill(255);
   noStroke();
   // Create a ball
   ball = new Ball(width/2,height/2,50,50,10,50);
