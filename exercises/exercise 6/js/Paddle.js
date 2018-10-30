@@ -42,6 +42,11 @@ Paddle.prototype.handleInput = function() {
     //NOTE there shouldn't put a minus because you don't want to reverse the speed, so removing that minus
     this.vy = this.speed;
   }
+ //NOTE stopping the paddles from moving if the player let's go of the key
+  else {
+    this.vy = 0;
+    this.vx = 0;
+  }
 }
 
 // update()
