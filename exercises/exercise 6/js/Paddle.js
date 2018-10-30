@@ -12,7 +12,8 @@
 //Sets the properties with the provided arguments or defaults
 
 //NOTE pladdle was written instead of paddle
-function Paddle(x,y,w,h,speed,downKey,upKey) {
+//NOTE upKey and downKey are reversed, so im unreversing them
+function Paddle(x,y,w,h,speed,upKey,downKey) {
   this.x = x;
   this.y = y;
   //NOTE vy and vx are inversed here.
