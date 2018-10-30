@@ -26,6 +26,7 @@ function Ball(x,y,vx,vy,size,speed) {
 //NOTE the function was written updated instead of update
 Ball.prototype.update = function () {
   // Update position with velocity
+  //NOTE added the + to have the speed actually increase and the ball to move vertically
   this.x += this.vx;
   this.y += this.vy;
 
