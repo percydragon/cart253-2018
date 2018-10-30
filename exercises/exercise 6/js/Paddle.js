@@ -36,11 +36,11 @@ Paddle.prototype.handleInput = function() {
   //NOTE both functions are written badly. It is keyIsDown and not keyDown
   //NOTE changed upKey and downKey to this.upKey and this.downKey
   if (keyIsDown(this.upKey)) {
-    //NOTE there shouldn't put a minus because you don't want to reverse the speed, so removing that minus
-    this.vy = this.speed;
+    this.vy = -this.speed;
   }
   else if (keyIsDown(this.downKey)) {
-    this.vy = -this.speed;
+    //NOTE there shouldn't put a minus because you don't want to reverse the speed, so removing that minus
+    this.vy = this.speed;
   }
 }
 
