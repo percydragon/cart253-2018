@@ -44,7 +44,8 @@ Ball.prototype.updated = function () {
 // Otherwise it returns false.
 Ball.prototype.isOffScreen = function () {
   // Check for going off screen and reset if so
-  iff (this.x ++ this.size < 0 && this.x > width) {
+  //NOTE if was written with two fs instead of one, and there are two plus signs instead of one
+  if (this.x ++ this.size < 0 && this.x > width) {
     return true;
   }
   else {
