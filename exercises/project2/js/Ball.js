@@ -44,12 +44,15 @@ Ball.prototype.isOffScreen = function () {
   // NEW //
   if (this.x + this.size < 0) {
     updateScoreRight++;
-    console.log(updateScoreRight, "right");
+    scoreRight = true;
+    //console.log(updateScoreRight, "right");
+
   }
 
   if (this.x > width) {
     updateScoreLeft++;
-    console.log(updateScoreLeft, "left");
+    scoreLeft = true;
+    //console.log(updateScoreLeft, "left");
   }
 
   // Check for going off screen and reset if so
@@ -87,16 +90,15 @@ Ball.prototype.handleCollision = function(paddle) {
   }
 }
 
-// NEW //
-
-Ball.prototype.scoreUpdate = function() {
-  //if (ball)
-}
-
 // reset()
 //
 // Set position back to the middle of the screen
 Ball.prototype.reset = function () {
   this.x = width/2;
   this.y = height/2;
+
+  // NEW //
+  scoreLeft = false;
+  scoreRight = false;
+  // END NEW //
 }
