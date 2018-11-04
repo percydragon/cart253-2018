@@ -15,22 +15,60 @@ var leftPaddle;
 var rightPaddle;
 
 // NEW //
+
 // score tracking variable
 var updateScoreLeft = 0;
 var updateScoreRight = 0;
+
 // NOTE array variably for increasing colours depending on points of player
 var paddleColours;
+
 // variable that allows us to decide if the array index increases or not in an if statement
 var scoreLeft = false;
 var scoreRight = false;
 
-// END NEW //
+// variable for sounds
+
+var onePoint;
+var twoPoints;
+var threePoints;
+var fourPoints;
+var fivePoints;
+var sixPoints;
+var sevenPoints;
+var eightPoints;
+var ninePoints;
+var tenPoints;
+var elevenPoints;
+var twelvePoints;
+var thirteenPoints;
+
+// preload()
+
+//loading in sound effects
+
+function preload() {
+  onePoint = new Audio("assets/sounds/1_p.mp3");
+  twoPoints = new Audio("assets/sounds/2_p.mp3");
+  threePoints = new Audio("assets/sounds/3_p.mp3");
+  fourPoints = new Audio("assets/sounds/4_p.mp3");
+  fivePoints = new Audio("assets/sounds/5_p.mp3");
+  sixPoints = new Audio("assets/sounds/6_p.mp3");
+  sevenPoints = new Audio("assets/sounds/7_p.mp3");
+  eightPoints = new Audio("assets/sounds/8_p.mp3");
+  ninePoints = new Audio("assets/sounds/9_p.mp3");
+  tenPoints = new Audio("assets/sounds/10_p.mp3");
+  elevenPoints = new Audio("assets/sounds/11_p.mp3");
+  twelvePoints = new Audio("assets/sounds/12_p.mp3");
+  thirteenPoints = new Audio("assets/sounds/13_p.mp3");
+}
 
 // setup()
 //
 // Creates the ball and paddles
 function setup() {
   createCanvas(640,480);
+
   // NEW //
   paddleColours = [
     color(246, 255, 237),
@@ -48,7 +86,7 @@ function setup() {
     color(120, 255, 2)
   ]
   // END NEW //
-  
+
   // Create a ball
   ball = new Ball(width/2,height/2,5,5,10,5);
   // Create the right paddle with UP and DOWN as controls
@@ -73,10 +111,12 @@ function draw() {
   rightPaddle.update();
 
   if (ball.isOffScreen()) {
+
     // NEW //
     leftPaddle.scoreDisplay();
     rightPaddle.scoreDisplay();
     // END NEW //
+
     ball.reset();
   }
 

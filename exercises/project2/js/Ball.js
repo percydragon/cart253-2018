@@ -45,6 +45,7 @@ Ball.prototype.isOffScreen = function () {
   if (this.x + this.size < 0) {
     updateScoreRight++;
     scoreRight = true;
+    this.soundEffectRight();
     //console.log(updateScoreRight, "right");
 
   }
@@ -52,6 +53,7 @@ Ball.prototype.isOffScreen = function () {
   if (this.x > width) {
     updateScoreLeft++;
     scoreLeft = true;
+    this.soundEffectLeft();
     //console.log(updateScoreLeft, "left");
   }
 
@@ -89,6 +91,87 @@ Ball.prototype.handleCollision = function(paddle) {
     }
   }
 }
+
+// NEW //
+//soundEffect to indicate the player's score has increased
+Ball.prototype.soundEffectRight = function () {
+  if (updateScoreRight === 1) {
+    onePoint.play();
+  }
+  if (updateScoreRight === 2) {
+    twoPoints.play();
+  }
+  if (updateScoreRight === 3) {
+    threePoints.play();
+  }
+  if (updateScoreRight === 4) {
+    fourPoints.play();
+  }
+  if (updateScoreRight === 5) {
+    fivePoints.play();
+  }
+  if (updateScoreRight === 6) {
+    sixPoints.play();
+  }
+  if (updateScoreRight === 7) {
+    sevenPoints.play();
+  }
+  if (updateScoreRight === 8) {
+    eightPoints.play();
+  }
+  if (updateScoreRight === 9) {
+    ninePoints.play();
+  }
+  if (updateScoreRight === 10) {
+    tenPoints.play();
+  }
+  if (updateScoreRight === 11) {
+    elevenPoints.play();
+  }
+  if (updateScoreRight === 12) {
+    twelvePoints.play();
+  }
+}
+
+Ball.prototype.soundEffectLeft = function() {
+  if (updateScoreLeft === 1) {
+    onePoint.play();
+  }
+  if (updateScoreLeft === 2) {
+    twoPoints.play();
+  }
+  if (updateScoreLeft === 3) {
+    threePoints.play();
+  }
+  if (updateScoreLeft === 4) {
+    fourPoints.play();
+  }
+  if (updateScoreLeft === 5) {
+    fivePoints.play();
+  }
+  if (updateScoreLeft === 6) {
+    sixPoints.play();
+  }
+  if (updateScoreLeft === 7) {
+    sevenPoints.play();
+  }
+  if (updateScoreLeft === 8) {
+    eightPoints.play();
+  }
+  if (updateScoreLeft === 9) {
+    ninePoints.play();
+  }
+  if (updateScoreLeft === 10) {
+    tenPoints.play();
+  }
+  if (updateScoreLeft === 11) {
+    elevenPoints.play();
+  }
+  if (updateScoreLeft === 12) {
+    twelvePoints.play();
+  }
+}
+
 
 // reset()
 //
