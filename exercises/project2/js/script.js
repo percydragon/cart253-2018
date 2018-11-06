@@ -16,14 +16,19 @@ var rightPaddle;
 
 // NEW //
 
+var food;
+
 // score tracking variable
 var updateScoreLeft = 0;
 var updateScoreRight = 0;
 
-var state = 'TITLE';
+var state = "TITLE";
 
 // NOTE array variably for increasing colours depending on points of player
 var paddleColours;
+
+//changes colour of food ball
+var foodColor;
 
 // variable that allows us to decide if the array index increases or not in an if statement
 var scoreLeft = false;
@@ -113,6 +118,10 @@ function setup() {
     color(130, 255, 20),
     color(120, 255, 2)
   ]
+
+  foodColor = color(map(sin(angle),-1,1,0,255),map(cos(angle),-1,1,0,255,0),88);
+
+  food = new Food(random(width),random(height),random(1000),random(1000),20,foodColor);
   // END NEW //
 
   // Create a ball
@@ -177,14 +186,11 @@ function playGame() {
   ball.update();
   leftPaddle.update();
   rightPaddle.update();
+  // NEW //
+  food.update();
+  // END NEW //
 
   if (ball.isOffScreen()) {
-
-    // // NEW //
-    // leftPaddle.scoreDisplay();
-    // rightPaddle.scoreDisplay();
-    // // END NEW //
-
     ball.reset();
   }
 
@@ -194,10 +200,13 @@ function playGame() {
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
+  // NEW //
+  food.display();
   if (updateScoreLeft > 11 || updateScoreRight > 11) {
     reset();
     state = "OVER";
   }
+  // END NEW //
 }
 
 function reset() {

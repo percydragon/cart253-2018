@@ -33,6 +33,7 @@ Ball.prototype.update = function () {
   if (this.y === 0 || this.y + this.size === height) {
     this.vy = -this.vy;
   }
+  food.ballSpeedIncrease();
 }
 
 // isOffScreen()
