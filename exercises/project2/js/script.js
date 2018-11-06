@@ -43,11 +43,28 @@ var elevenPoints;
 var twelvePoints;
 var thirteenPoints;
 
+//Font for titleScreen
+var awesomeFont;
+
+//text for titleScreen
+var titleText = "Welcome to Pong!\nPlease Press\nany key\nto play";
+
+//angle for trig functions
+var angle = 0;
+
+//var for title screen to display game if enter is hit
+var pressStart = false;
+
+//var for end game
+var gameOver = false;
+
 // preload()
 
 //loading in sound effects
 
 function preload() {
+  awesomeFont = loadFont("assets/fonts/qubio/QubioShadow.ttf");
+
   onePoint = new Audio("assets/sounds/1_p.mp3");
   twoPoints = new Audio("assets/sounds/2_p.mp3");
   threePoints = new Audio("assets/sounds/3_p.mp3");
@@ -62,6 +79,8 @@ function preload() {
   twelvePoints = new Audio("assets/sounds/12_p.mp3");
   thirteenPoints = new Audio("assets/sounds/13_p.mp3");
 }
+
+// END NEW //
 
 // setup()
 //
@@ -96,11 +115,47 @@ function setup() {
   leftPaddle = new Paddle(0,height/2,10,60,10,83,87,paddleColours);
 }
 
+// NEW //
+
+//titleScreen()
+//setting up the first screen the player sees
+
+function titleScreen() {
+
+  background(0);
+
+  noStroke();
+  //
+  var fillColor = color(map(sin(angle),-1,1,0,255),map(cos(angle),-1,1,0,255,0),77);
+  fill(fillColor);
+  //
+  textSize(50);
+  textFont(awesomeFont);
+  textAlign(CENTER);
+  text(titleText, width/1.92, 120);
+  //
+  angle += 0.07;
+}
+// END NEW //
+
 // draw()
 //
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
+
+  // NEW //
+  // adding in an if statement to activate the game
+  if (pressStart) {
+    playGame();
+  }
+  else {
+    titleScreen();
+  }
+}
+
+
+function playGame() {
   background(0);
 
   leftPaddle.handleInput();
@@ -126,4 +181,33 @@ function draw() {
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
+
+  if (updateScoreLeft === 12 || updateScoreRight === 12) {
+    gameOver();
+  }
+}
+
+function gameOver() {
+  background(0);
+
+  noStroke();
+  //
+  var fillColorTwo = color(map(cos(angle),-1,1,0,255),map(sin(angle),-1,1,0,255,0),77);
+  fill(fillColorTwo);
+  //
+  textSize(50);
+  textFont(awesomeFont);
+  textAlign(CENTER);
+  text(titleText, width/1.92, 120);
+  //
+  angle += 0.07;
+
+}
+
+function keyPressed() {
+  pressStart = true;
+}
+
+function mouseClicked() {
+  gameOver = true;
 }
