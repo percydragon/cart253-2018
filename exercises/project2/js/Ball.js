@@ -47,6 +47,9 @@ Ball.prototype.isOffScreen = function () {
     scoreRight = true;
     this.soundEffectRight();
     //console.log(updateScoreRight, "right");
+    // // NEW //
+    rightPaddle.scoreDisplay(updateScoreRight);
+    // // END NEW //
 
   }
 
@@ -54,6 +57,7 @@ Ball.prototype.isOffScreen = function () {
     updateScoreLeft++;
     scoreLeft = true;
     this.soundEffectLeft();
+    leftPaddle.scoreDisplay(updateScoreLeft);
     //console.log(updateScoreLeft, "left");
   }
 

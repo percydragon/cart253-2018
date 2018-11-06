@@ -8,6 +8,7 @@
 // the left hand paddle.
 //
 // Written with JavaScript OOP.
+const debug = false;
 
 // Variable to contain the objects representing our ball and paddles
 var ball;
@@ -19,6 +20,8 @@ var rightPaddle;
 // score tracking variable
 var updateScoreLeft = 0;
 var updateScoreRight = 0;
+
+var state = 'TITLE';
 
 // NOTE array variably for increasing colours depending on points of player
 var paddleColours;
@@ -49,6 +52,9 @@ var awesomeFont;
 //text for titleScreen
 var titleText = "Welcome to Pong!\nPlease Press\nany key\nto play";
 
+//text for game over
+var overText = "You lost!\nClick the mouse\nto try again"
+
 //angle for trig functions
 var angle = 0;
 
@@ -56,7 +62,7 @@ var angle = 0;
 var pressStart = false;
 
 //var for end game
-var gameOver = false;
+var gameOverReally = false;
 
 // preload()
 
@@ -121,9 +127,7 @@ function setup() {
 //setting up the first screen the player sees
 
 function titleScreen() {
-
   background(0);
-
   noStroke();
   //
   var fillColor = color(map(sin(angle),-1,1,0,255),map(cos(angle),-1,1,0,255,0),77);
@@ -135,22 +139,26 @@ function titleScreen() {
   text(titleText, width/1.92, 120);
   //
   angle += 0.07;
+
+  if (keyIsPressed) {
+    state = 'PLAY';
+  }
 }
 // END NEW //
 
+
+function toggleStart () {
+  pressStart = !pressStart;
+}
 // draw()
 //
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
-
-  // NEW //
-  // adding in an if statement to activate the game
-  if (pressStart) {
-    playGame();
-  }
-  else {
-    titleScreen();
+  switch (state) {
+    case 'TITLE': titleScreen(); break;
+    case 'PLAY': playGame(); break;
+    case 'OVER': gameOver(); break;
   }
 }
 
@@ -167,10 +175,10 @@ function playGame() {
 
   if (ball.isOffScreen()) {
 
-    // NEW //
-    leftPaddle.scoreDisplay();
-    rightPaddle.scoreDisplay();
-    // END NEW //
+    // // NEW //
+    // leftPaddle.scoreDisplay();
+    // rightPaddle.scoreDisplay();
+    // // END NEW //
 
     ball.reset();
   }
@@ -181,10 +189,21 @@ function playGame() {
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
-
-  if (updateScoreLeft === 12 || updateScoreRight === 12) {
-    gameOver();
+  if (updateScoreLeft > 11 || updateScoreRight > 11) {
+    reset();
+    state = 'OVER';
   }
+}
+
+function reset () {
+  ball = new Ball(width/2,height/2,5,5,10,5);
+  rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW,paddleColours);
+  // Create the left paddle with W and S as controls
+  // Keycodes 83 and 87 are W and S respectively
+  leftPaddle = new Paddle(0,height/2,10,60,10,83,87,paddleColours);
+
+  updateScoreLeft = 0;
+  updateScoreRight = 0;
 }
 
 function gameOver() {
@@ -192,22 +211,16 @@ function gameOver() {
 
   noStroke();
   //
-  var fillColorTwo = color(map(cos(angle),-1,1,0,255),map(sin(angle),-1,1,0,255,0),77);
+  var fillColorTwo = color(map(sin(angle),-1,1,0,255),map(cos(angle),-1,1,0,255,0),77);
   fill(fillColorTwo);
   //
   textSize(50);
   textFont(awesomeFont);
   textAlign(CENTER);
-  text(titleText, width/1.92, 120);
+  text(overText, width/1.92, 120);
   //
   angle += 0.07;
-
-}
-
-function keyPressed() {
-  pressStart = true;
-}
-
-function mouseClicked() {
-  gameOver = true;
+  if (mouseIsPressed) {
+    state = 'TITLE'
+  }
 }

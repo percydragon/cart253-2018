@@ -16,8 +16,9 @@ function Paddle(x,y,w,h,speed,downKey,upKey,paddleColours) {
   this.speed = speed;
   this.downKey = downKey;
   this.upKey = upKey;
+  this.pc = paddleColours;
   // NEW //
-  this.color = paddleColours[0];
+  this.color = this.pc[0];
   // END NEW //
 }
 
@@ -60,13 +61,12 @@ Paddle.prototype.display = function() {
 // NEW //
 //NOTE this function updates the colours of the paddles depending on their score
 
-Paddle.prototype.scoreDisplay = function () {
-  if (scoreLeft) {
-    leftPaddle.color = paddleColours[updateScoreLeft];
+Paddle.prototype.scoreDisplay = function (score) {
+  if (this.pc[score]) {
+    this.color = this.pc[score];
+  } else {
+    return;
   }
-  if (scoreRight) {
-      rightPaddle.color = paddleColours[updateScoreRight];
-    }
 }
 
 // END NEW //
