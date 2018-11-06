@@ -22,8 +22,8 @@ function Food(x,y,tx,ty,size,color) {
 Food.prototype.update = function() {
   this.x = width * noise(this.tx);
   this.y = height * noise(this.ty);
-  this.tx += 0.05;
-  this.ty += 0.05;
+  this.tx += 0.02;
+  this.ty += 0.02;
 
   this.x = constrain(this.x,0,width);
   this.y = constrain(this.y,0,height);
@@ -39,9 +39,11 @@ Food.prototype.display = function() {
 //ballSpeedIncrease()
 // increases the speed of the ball if intercepts with the food
 Food.prototype.ballSpeedIncrease = function() {
-  if (ball.x && ball.y === this.x && this.y) {
-    console.log(ball.vx,ball.vy)
-    ball.vx += 2;
-    ball.vy += 2;
+  if (this.x + this.size > ball.x && this.x < ball.x + ball.size) {
+    // Check if the ball overlaps the paddle on y axis
+    if (this.y + this.size > ball.y && this.y < ball.y + ball.size) {
+    console.log(ball.vx, ball.vy);
+    ball.vx++;
+   }
   }
 }

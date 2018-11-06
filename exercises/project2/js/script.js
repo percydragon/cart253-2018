@@ -161,9 +161,6 @@ function titleScreen() {
 // END NEW //
 
 
-function toggleStart () {
-  pressStart = !pressStart;
-}
 // draw()
 //
 // Handles input, updates all the elements, checks for collisions
