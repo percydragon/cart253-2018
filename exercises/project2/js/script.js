@@ -119,9 +119,7 @@ function setup() {
     color(120, 255, 2)
   ]
 
-  foodColor = color(map(sin(angle),-1,1,0,255),map(cos(angle),-1,1,0,255,0),88);
-
-  food = new Food(random(width),random(height),random(1000),random(1000),20,foodColor);
+  food = new Food(random(width),random(height),random(1000),random(1000),20);
   // END NEW //
 
   // Create a ball
@@ -203,10 +201,10 @@ function playGame() {
     reset();
     state = "OVER";
   }
-  // END NEW //
 }
 
 function reset() {
+  food = new Food(random(width),random(height),random(1000),random(1000),20);
   ball = new Ball(width/2,height/2,5,5,10,5);
   rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW,paddleColours);
   leftPaddle = new Paddle(0,height/2,10,60,10,83,87,paddleColours);
@@ -234,3 +232,5 @@ function gameOver() {
     state = "TITLE"
   }
 }
+
+// END NEW //

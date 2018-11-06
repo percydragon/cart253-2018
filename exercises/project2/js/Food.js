@@ -6,14 +6,12 @@
 // Food Constructor
 
 //sets the properties of the argument or the provided default
-function Food(x,y,tx,ty,size,color) {
+function Food(x,y,tx,ty,size) {
   this.x = x;
   this.y = y;
   this.tx = tx;
   this.ty = ty;
   this.size = size;
-  this.foodC = foodColor;
-  this.color = this.foodC;
 }
 
 //update()
@@ -32,8 +30,10 @@ Food.prototype.update = function() {
 //display()
 //draw the food as a rectangle on the screen
 Food.prototype.display = function() {
-  fill(this.color);
+  var foodColor = color(map(sin(angle),-1,1,0,255),map(cos(angle),-1,1,0,255,0),100);
+  fill(foodColor);
   rect(this.x,this.y,this.size,this.size);
+  angle += 0.07;
 }
 
 //ballSpeedIncrease()
