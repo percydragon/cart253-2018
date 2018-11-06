@@ -8,7 +8,6 @@
 // the left hand paddle.
 //
 // Written with JavaScript OOP.
-const debug = false;
 
 // Variable to contain the objects representing our ball and paddles
 var ball;
@@ -45,6 +44,8 @@ var tenPoints;
 var elevenPoints;
 var twelvePoints;
 var thirteenPoints;
+
+var sadMusic;
 
 //Font for titleScreen
 var awesomeFont;
@@ -84,6 +85,8 @@ function preload() {
   elevenPoints = new Audio("assets/sounds/11_p.mp3");
   twelvePoints = new Audio("assets/sounds/12_p.mp3");
   thirteenPoints = new Audio("assets/sounds/13_p.mp3");
+
+  sadMusic = new Audio("assets/sounds/titanic.mp3")
 }
 
 // END NEW //
@@ -127,6 +130,8 @@ function setup() {
 //setting up the first screen the player sees
 
 function titleScreen() {
+  sadMusic.pause();
+  sadMusic.currentTime = 0;
   background(0);
   noStroke();
   //
@@ -141,7 +146,7 @@ function titleScreen() {
   angle += 0.07;
 
   if (keyIsPressed) {
-    state = 'PLAY';
+    state = "PLAY";
   }
 }
 // END NEW //
@@ -156,9 +161,9 @@ function toggleStart () {
 // and displays everything.
 function draw() {
   switch (state) {
-    case 'TITLE': titleScreen(); break;
-    case 'PLAY': playGame(); break;
-    case 'OVER': gameOver(); break;
+    case "TITLE": titleScreen(); break;
+    case "PLAY": playGame(); break;
+    case "OVER": gameOver(); break;
   }
 }
 
@@ -191,15 +196,13 @@ function playGame() {
   rightPaddle.display();
   if (updateScoreLeft > 11 || updateScoreRight > 11) {
     reset();
-    state = 'OVER';
+    state = "OVER";
   }
 }
 
-function reset () {
+function reset() {
   ball = new Ball(width/2,height/2,5,5,10,5);
   rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW,paddleColours);
-  // Create the left paddle with W and S as controls
-  // Keycodes 83 and 87 are W and S respectively
   leftPaddle = new Paddle(0,height/2,10,60,10,83,87,paddleColours);
 
   updateScoreLeft = 0;
@@ -207,6 +210,7 @@ function reset () {
 }
 
 function gameOver() {
+  sadMusic.play();
   background(0);
 
   noStroke();
@@ -221,6 +225,6 @@ function gameOver() {
   //
   angle += 0.07;
   if (mouseIsPressed) {
-    state = 'TITLE'
+    state = "TITLE"
   }
 }

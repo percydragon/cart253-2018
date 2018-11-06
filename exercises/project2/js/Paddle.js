@@ -64,7 +64,8 @@ Paddle.prototype.display = function() {
 Paddle.prototype.scoreDisplay = function (score) {
   if (this.pc[score]) {
     this.color = this.pc[score];
-  } else {
+  }
+  else {
     return;
   }
 }
