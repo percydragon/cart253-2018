@@ -8,10 +8,8 @@ function Planet (x,y,z,size) {
   this.z = z;
   this.size = size;
 }
-
+//creating the display for the planets to show what they look like
 Planet.prototype.display = function() {
-  console.log("hello")
-
   push();
   translate(this.x,0,this.z);
   noStroke();
