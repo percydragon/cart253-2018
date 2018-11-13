@@ -32,7 +32,7 @@ function setup() {
 
   //adding while loop that pushes planets into planet array
   while ( planetsTotal < numPlanets) {
-    planets.push(new Planet((planetsTotal+150) * 3.5,0,50,random(10,50)));
+    planets.push(new Planet((planetsTotal*80) + 150,0,50,random(10,50)));
     planetsTotal++;
   }
 
