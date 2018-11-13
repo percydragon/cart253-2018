@@ -4,6 +4,13 @@
 //
 // create a solar system
 
+// I want to create an interactive solar system where the user
+// plays god. I want to later input more choices, possible use the switch variable
+// for when I end up having more if statements.
+//
+// I want to show how someone's input can shape and form the universe. And
+// in this case they quite literally do.
+
 //varibals
 var addPlanet = false;
 var angleY = 0.0;
