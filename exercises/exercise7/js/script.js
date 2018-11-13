@@ -69,9 +69,10 @@ function universe() {
       rotateY(angleY);
       planets[i].display();
       osc.freq(constrain(map(mouseY,0,height,1000,0),0,1000));
+      osc.amp(constrain(map(mouseX,0,width,100,1),1,100));
     }
   }
 
-  angleX -= 0.001;
+  angleX -= 0.005;
   angleY += 0.005;
 }
