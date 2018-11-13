@@ -6,16 +6,26 @@
 
 //varibals
 var addPlanet = false;
+var angleY = 0.0;
+var angleX = 0.0;
+
+var numPlanets = 5;
+
+var planets = [];
+var planetsTotal = 0;
 
 //setup()
 //setting up the universe
 function setup() {
-  createCanvas(700,700, WEBGL);
+  createCanvas(1500,800, WEBGL);
+  while ( planetsTotal < numPlanets) {
+    planets.push(new Planet((planetsTotal+150) * 3.5,0,50,random(10,50)));
+    planetsTotal++;
+  }
 }
 
 //draw()
 function draw() {
-  background(0);
   universe();
 }
 
@@ -23,13 +33,20 @@ function draw() {
 //creating code for the universe
 
 function universe() {
-  sphere(100);
+  background(0);
+  // push();
+  rotateY(angleY);
   noStroke();
   fill(255,210,99);
-}
+  sphere(100);
 
-//mouseclicked()
-//each time the player clicks the screen, a new random planet is added
-function mouseClicked() {
-  addPlanet = true;
+  if (mouseIsPressed) {
+    for (var i = 0; i < planets.length; i++) {
+      rotateY(angleY);
+      planets[i].display();
+    }
+  }
+
+  angleX -= 0.001;
+  angleY += 0.005;
 }
