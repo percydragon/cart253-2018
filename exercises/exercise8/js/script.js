@@ -9,15 +9,36 @@
 //variables
 
 var babyStars = [];
+var starsTotal = 0;
+var numStars = 100;
 
 //setup()
 //let's set up the galaxy
 function setup() {
-  createCanvas(1000,800);
+  console.log(new Date)
+  createCanvas(800,500);
+  background(0);
 }
 
 //draw()
 //let's make it do shit
 function draw() {
-  background(0);
+  nebula();
+}
+
+//im gonna be creating an array to push points
+//to create stars
+//nebula()
+function nebula() {
+  // while (starsTotal < numStars) {
+  //   babyStars.push(new Star(mouseX,mouseY,random(2,5),random(2,5)));
+  //   starsTotal++;
+  // }
+  for (var i = 0; i < babyStars.length; i++) {
+    babyStars[i].display();
+  }
+}
+
+function mouseDragged() {
+  babyStars.push(new Star(mouseX + random(-10, 10),mouseY,random(2,5),random(2,5)));
 }
