@@ -15,7 +15,7 @@ var numStars = 100;
 //setup()
 //let's set up the galaxy
 function setup() {
-  console.log(new Date)
+  //console.log(new Date)
   createCanvas(800,500);
   background(0);
 }
