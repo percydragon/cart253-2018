@@ -27,7 +27,10 @@ var radius;
 var instructionFont;
 
 //instructions on what to do
-var instructions = "Drag Mouse to create Stars\nPress any button to add flickering Stars"
+var instructions = "Drag Mouse to create Stars\nPress any button to add flickering Stars\nDrag the mouse left to right\n to change the amplitude of the sound\nDrag the mouse up and down \nto change the frequency of the sound"
+
+//i wanted to add in sound
+var osc;
 
 //preload()
 //i want to use a fancy font
@@ -51,10 +54,17 @@ function setup() {
   push();
   textFont(instructionFont);
   textAlign(CENTER)
-  textSize(29);
+  textSize(30);
   fill(222,88,99);
   noStroke();
   text(instructions,width/2,100);
+
+  //adding in the oscillating sound
+  osc = new p5.Oscillator();
+  osc.setType("sine");
+  osc.freq(random(250));
+  osc.amp(1);
+  osc.start();
 
 
 
@@ -95,6 +105,10 @@ function meteorite() {
 //having the stars be created everytime the mouse is dragged
 function mouseDragged() {
   babyStars.push(new Star(mouseX + random(-10, 10),mouseY,random(2,5),random(2,5)));
+  //while the mouse is dragged, there is an oscillating sound connected to both the x and y of the mouse
+  // it sounds really trippy
+  osc.freq(constrain(map(mouseY,0,height,1000,0),0,1000));
+  osc.amp(constrain(map(mouseX,0,width,100,1),1,100));
 }
 
 //keyPressed()
@@ -108,6 +122,7 @@ function keyPressed() {
   meteor = true;
   radius = random(50);
   planets.push(new Planet(random(width), random(height), radius * 2 ));
+
 }
 
 //there we go our universe is born and once again, MASSIVE EPILEPSY WARNING
