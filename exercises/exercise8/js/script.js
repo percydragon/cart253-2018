@@ -23,6 +23,20 @@ var planets = [];
 //radius for osciallating ellipses. Easy enough
 var radius;
 
+//fancy font
+var instructionFont;
+
+//instructions on what to do
+var instructions = "Drag Mouse to create Stars\nPress any button to add flickering Stars"
+
+//preload()
+//i want to use a fancy font
+//so i need to load it in
+
+function preload() {
+  instructionFont = loadFont("assets/fonts/QubioShadow.ttf")
+}
+
 //setup()
 //let's set up the galaxy
 function setup() {
@@ -30,6 +44,20 @@ function setup() {
   background(0);
   //space was lame before it got hot
   //comedy is my passion *insets bad graphic design is my passion meme*
+
+  //instructions
+  //ive just realized no one will understand this..... what it is
+  //if i don't put any instructions
+  push();
+  textFont(instructionFont);
+  textAlign(CENTER)
+  textSize(29);
+  fill(222,88,99);
+  noStroke();
+  text(instructions,width/2,100);
+
+
+
 }
 
 //draw()
