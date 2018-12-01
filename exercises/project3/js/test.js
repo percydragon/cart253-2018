@@ -78,6 +78,13 @@ function setup() {
   translate(width/2,height/2)
   background(0)
 
+  //this was originally in set up in the prototype 1
+  //so ill leave it here for now
+  while ( planetsTotal < numPlanets) {
+    planets.push(new Planet((planetsTotal*80) + 150,0,50,random(10,50)));
+    planetsTotal++;
+  }
+
   //adding in oscillating sound
   osc = new p5.Oscillator();
   osc.setType("sine");
@@ -94,12 +101,34 @@ function setup() {
 // Description of draw()
 
 function draw() {
+
+
+}
+
+//putting prototype 1 into it's own function
+//so that i can properly divide everything up
+//so that when I put the switch case into the draw loop
+//everything will be nice and clean
+
+//proto1()
+function proto1() {
+  universe();
+}
+
+//putting protoype 2 into it's own function
+//so that I can properly divide everything up
+//into those seperate things I wanted to do
+//so everything that was in draw in proto2
+//is now in this new function
+//so that there can only be switch cases in the draw loop
+
+//proto2()
+function proto2() {
   nebula();
 
   if (spaceKey) {
     meteorite();
   }
-
 }
 
 //im gonna be creating an array to push points
@@ -121,6 +150,46 @@ function meteorite() {
     meteors[i].display();
   }
 }
+
+//universe()
+//creating code for the universe
+// it draws the planets in, such as the sun, and adds the variable to show
+//when the other planets should be shown
+//this is the code that basically has that rotating solar system thing
+function universe() {
+  //implementing the sun
+  background(0);
+  // push();
+  rotateY(angleY);
+  noStroke();
+  //orangeish colour
+  fill(255,210,99);
+  sphere(100);
+
+  // implementing the rest of the planets
+  //they look sort of trippy and will 100% cause epilepsy
+  //when you press the mouse, the planets appear
+  //when you releat the mouse, poof! they vanish
+  if (mouseIsPressed) {
+    // draws the planets in until there are no more planets to draw in
+    for (var i = 0; i < planets.length; i++) {
+      var angleR = 0.0;
+      //angleR += 0.005;
+      //having the angle of rotation be connected to the mouse
+      angleR = map(mouseX,0,width,30,0);
+      rotateY(angleR);
+      planets[i].display();
+      //while the mouse is pressed, there is an oscillating sound connected to both the x and y of the mouse
+      // it sounds really trippy
+      osc.freq(constrain(map(mouseY,0,height,1000,0),0,1000));
+      osc.amp(constrain(map(mouseX,0,width,100,1),1,100));
+    }
+  }
+
+  angleX -= 0.005;
+  angleY += 0.005;
+}
+
 
 //mouseDragged()
 //having the stars be created everytime the mouse is dragged
