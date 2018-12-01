@@ -135,8 +135,8 @@ function nebula() {
 //but going back and changging them would be a REAL hassle
 //meteorite()
 function meteorite() {
-  for (var i = 0; i < planets.length; i++) {
-    planets[i].display();
+  for (var i = 0; i < meteors.length; i++) {
+    meteors[i].display();
   }
 }
 

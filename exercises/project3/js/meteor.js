@@ -19,7 +19,7 @@ function Meteor (x,y,size) {
 //we're displaying the stars
 //btw epilepsy tw
 //bc speed of growth increases
-Planet.prototype.display = function() {
+Meteor.prototype.display = function() {
   push();
   noStroke();
   //i wanted to randomize the colours....
