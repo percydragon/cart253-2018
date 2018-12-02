@@ -57,6 +57,9 @@ var instructions = "Drag Mouse to create Stars\nPress any button to add flickeri
 //i wanted to add in sound
 var osc;
 
+//adding in the switch state variable
+var state = "TITLE";
+
 //preload()
 //i want to use a fancy font
 //so i need to load it in
@@ -95,16 +98,44 @@ function setup() {
 
 }
 
+//adding in a title titleScreen
+//so that the player is immediately brought to that, than shown how to change from one to the other
+//since I can't use text w/ WEBGL
+//i'll need to find new and innovative ways to create the titleScreen
+//i'll probably just make an image lol
+//titleScreen()
+function titleScreen() {
+  //so here is where we'll tell the player how to navigate between the prototypes
+  // right arrow is the protoype 1
+  // left arrow is the prototype 2
+  if (keyCode === RIGHT_ARROW) {
+    state = "PROTO1"
+  }
+  if (keyCode === LEFT_ARROW) {
+    state = "PROTO2"
+  }
+
+  //ive decided to add the sun in at the beginning
+  //because I feel like it would be visuall interesting
+  noStroke();
+  //orangeish colour
+  fill(255,210,99);
+  sphere(100);
+
+}
+
 
 // draw()
 //
 // Description of draw()
 
 function draw() {
-
-
+  switch (state) {
+    case "TITLE": titleScreen(); break;
+    case "PROTO1": proto1(); break;
+    case "PROTO2": proto2(); break;
+   }
 }
-
 //putting prototype 1 into it's own function
 //so that i can properly divide everything up
 //so that when I put the switch case into the draw loop
@@ -113,6 +144,13 @@ function draw() {
 //proto1()
 function proto1() {
   universe();
+
+  if (keyCode === UP_ARROW) {
+    state = "TITLE"
+  }
+  if (keyCode === LEFT_ARROW) {
+    state = "PROTO2"
+  }
 }
 
 //putting protoype 2 into it's own function
@@ -128,6 +166,13 @@ function proto2() {
 
   if (spaceKey) {
     meteorite();
+  }
+
+  if (keyCode === UP_ARROW) {
+    state = "TITLE"
+  }
+  if (keyCode === RIGHT_ARROW) {
+    state = "PROTO1"
   }
 }
 
@@ -194,7 +239,7 @@ function universe() {
 //mouseDragged()
 //having the stars be created everytime the mouse is dragged
 function mouseDragged() {
-  babyStars.push(new Star(mouseX + random(-10, 10),mouseY,random(2,5),random(2,5)));
+  babyStars.push(new Star(mouseX - random(width/1.8, 780),mouseY - height/2,random(2,5),random(2,5)));
   //while the mouse is dragged, there is an oscillating sound connected to both the x and y of the mouse
   // it sounds really trippy
   osc.freq(constrain(map(mouseY,0,height,1000,0),0,1000));
@@ -212,5 +257,4 @@ function keyPressed() {
   spaceKey = true;
   radius = random(50);
   meteors.push(new Meteor(random(width), random(height), radius * 2 ));
-
 }
