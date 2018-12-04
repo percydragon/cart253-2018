@@ -34,6 +34,8 @@ var radius;
 //fancy font
 var instructionFont;
 
+var instructionIMG;
+
 //instructions on what to do
 var instructions = "Drag Mouse to create Stars\nPress any button to add flickering Stars\nDrag the mouse left to right\n to change the amplitude of the sound\nDrag the mouse up and down \nto change the frequency of the sound"
 
@@ -46,6 +48,7 @@ var osc;
 
 function preload() {
   instructionFont = loadFont("assets/fonts/QubioShadow.ttf")
+  instructionIMG = loadImage("assets/images/instructions.png");
 }
 
 
@@ -55,10 +58,6 @@ function setup() {
   //adding while loop that pushes planets into planet array
   //because im effecient (read: lazy) and no one should have to manually code in
   //every single planet, when the code can do it for you!
-  while ( planetsTotal < numPlanets) {
-    planets.push(new Planet((planetsTotal*80) + 150,0,50,random(10,50)));
-    planetsTotal++;
-  }
 
   //adding in oscillating sound
   osc = new p5.Oscillator();
@@ -73,12 +72,6 @@ function setup() {
 // it just draws the universe
 function draw() {
   universe();
-
-  nebula();
-
-  if (spaceKey) {
-    meteorite();
-  }
 }
 
 //universe()
@@ -87,80 +80,6 @@ function draw() {
 //when the other planets should be shown
 
 function universe() {
-  //implementing the sun
   background(0);
-  // push();
-  rotateY(angleY);
-  noStroke();
-  //orangeish colour
-  fill(255,210,99);
-  sphere(100);
-
-  // implementing the rest of the planets
-  //they look sort of trippy and will 100% cause epilepsy
-  //when you press the mouse, the planets appear
-  //when you releat the mouse, poof! they vanish
-  if (mouseIsPressed) {
-    // draws the planets in until there are no more planets to draw in
-    for (var i = 0; i < planets.length; i++) {
-      var angleR = 0.0;
-      //angleR += 0.005;
-      //having the angle of rotation be connected to the mouse
-      angleR = map(mouseX,0,width,30,0);
-      rotateY(angleR);
-      planets[i].display();
-      //while the mouse is pressed, there is an oscillating sound connected to both the x and y of the mouse
-      // it sounds really trippy
-      osc.freq(constrain(map(mouseY,0,height,1000,0),0,1000));
-      osc.amp(constrain(map(mouseX,0,width,100,1),1,100));
-    }
-  }
-
-  angleX -= 0.005;
-  angleY += 0.005;
-}
-
-//im gonna be creating an array to push points
-//to create stars
-//nebula()
-function nebula() {
-  for (var i = 0; i < babyStars.length; i++) {
-    babyStars[i].display();
-  }
-}
-
-//here's the stars
-//or meteorites or whatever
-//man i didn't exactly name these properly
-//but going back and changging them would be a REAL hassle
-//meteorite()
-function meteorite() {
-  for (var i = 0; i < meteors.length; i++) {
-    meteors[i].display();
-  }
-}
-
-
-//mouseDragged()
-//having the stars be created everytime the mouse is dragged
-function mouseDragged() {
-  babyStars.push(new Star(mouseX + random(-10, 10),mouseY,random(2,5),random(2,5)));
-  //while the mouse is dragged, there is an oscillating sound connected to both the x and y of the mouse
-  // it sounds really trippy
-  osc.freq(constrain(map(mouseY,0,height,1000,0),0,1000));
-  osc.amp(constrain(map(mouseX,0,width,100,1),1,100));
-}
-
-//keyPressed()
-//having the screen reset itself to black
-//ive also added the adding more stars/meteorites/planets WHATEVER
-//this is very confusing and I'm very sorry
-//keyPressed()
-function keyPressed() {
-  fill(0);
-  rect(0, 0, width, height);
-  spaceKey = true;
-  radius = random(50);
-  meteors.push(new Meteor(random(width), random(height), radius * 2 ));
-
+  image(instructionIMG,width/2,height/2);
 }

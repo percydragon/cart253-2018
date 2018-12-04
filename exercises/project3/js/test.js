@@ -48,11 +48,8 @@ var meteors = [];
 //radius for osciallating ellipses. Easy enough
 var radius;
 
-//fancy font
-var instructionFont;
-
-//instructions on what to do
-var instructions = "Drag Mouse to create Stars\nPress any button to add flickering Stars\nDrag the mouse left to right\n to change the amplitude of the sound\nDrag the mouse up and down \nto change the frequency of the sound"
+//instruction image that explains how to go between everything
+var instructionIMG;
 
 //i wanted to add in sound
 var osc;
@@ -61,11 +58,12 @@ var osc;
 var state = "TITLE";
 
 //preload()
-//i want to use a fancy font
-//so i need to load it in
+//i actually can no longer use the fancy font because of webgl
+//but i do need to load in the image insutrctions
+//so i'm doing that now
 
 // function preload() {
-//   instructionFont = loadFont("assets/fonts/QubioShadow.ttf")
+//   instructionIMG = loadImage("assets/images/instructions.png");
 // }
 
 //i don't think i'll be able to use the font w/ WEBGL so yeah, I'm
@@ -78,8 +76,8 @@ var state = "TITLE";
 function setup() {
   //creating canvas
   createCanvas(1500,800, WEBGL);
-  translate(width/2,height/2)
-  background(0)
+  translate(width/2,height/2);
+  background(0);
 
   //this was originally in set up in the prototype 1
   //so ill leave it here for now
@@ -95,6 +93,12 @@ function setup() {
   osc.amp(1);
   osc.start();
 
+//adding in instructions via console.log BECAUSE NOTHING ELSE WORKS ANYMORE
+//AND ILL BE DAMNED IF PEOPLE CAN'T FIGURE OUT HOW THIS WORKS.
+  console.log("HEY SO! I tried to put in the titel screen image, but it won't work. So instead let me tell you how to use this game! So press up key for title screen, press left key for stars, and press right key for solar system")
+  console.log("You can also press down to see the weird amalagamtion of them both together!")
+  console.log("PS: press any key to create things in stars, drag the mouse to create the stars, and in solar system, drag your mouse to move the planets!")
+
 
 }
 
@@ -105,18 +109,22 @@ function setup() {
 //i'll probably just make an image lol
 //titleScreen()
 function titleScreen() {
+
   //so here is where we'll tell the player how to navigate between the prototypes
   // right arrow is the protoype 1
   // left arrow is the prototype 2
   if (keyCode === RIGHT_ARROW) {
-    state = "PROTO1"
+    state = "PROTO1";
   }
   if (keyCode === LEFT_ARROW) {
-    state = "PROTO2"
+    state = "PROTO2";
   }
-
+  if (keyCode === DOWN_ARROW) {
+    state ="AMALGAM"
+  }
   //ive decided to add the sun in at the beginning
   //because I feel like it would be visuall interesting
+  background(0);
   noStroke();
   //orangeish colour
   fill(255,210,99);
@@ -134,6 +142,7 @@ function draw() {
     case "TITLE": titleScreen(); break;
     case "PROTO1": proto1(); break;
     case "PROTO2": proto2(); break;
+    case "AMALGAM": amalagamtion(); break;
    }
 }
 //putting prototype 1 into it's own function
@@ -146,10 +155,13 @@ function proto1() {
   universe();
 
   if (keyCode === UP_ARROW) {
-    state = "TITLE"
+    state = "TITLE";
   }
   if (keyCode === LEFT_ARROW) {
-    state = "PROTO2"
+    state = "PROTO2";
+  }
+  if (keyCode === DOWN_ARROW) {
+    state ="AMALGAM"
   }
 }
 
@@ -169,10 +181,13 @@ function proto2() {
   }
 
   if (keyCode === UP_ARROW) {
-    state = "TITLE"
+    state = "TITLE";
   }
   if (keyCode === RIGHT_ARROW) {
-    state = "PROTO1"
+    state = "PROTO1";
+  }
+  if (keyCode === DOWN_ARROW) {
+    state ="AMALGAM"
   }
 }
 
@@ -235,6 +250,30 @@ function universe() {
   angleY += 0.005;
 }
 
+//amalagamtion()
+//so this is basically everything in one giant hot mess
+//should be fun
+//hopefully
+
+function amalagamtion() {
+  universe();
+  nebula();
+
+  if (spaceKey) {
+    meteorite();
+  }
+  if (keyCode === UP_ARROW) {
+    state = "TITLE";
+  }
+  if (keyCode === RIGHT_ARROW) {
+    state = "PROTO1";
+  }
+  if (keyCode === LEFT_ARROW) {
+    state = "PROTO2";
+  }
+
+}
+
 
 //mouseDragged()
 //having the stars be created everytime the mouse is dragged
@@ -256,5 +295,5 @@ function keyPressed() {
   rect(-width/2, -height/2, width, height);
   spaceKey = true;
   radius = random(50);
-  meteors.push(new Meteor(random(width), random(height), radius * 2 ));
+  meteors.push(new Meteor(random(-width/2, width/2), random(-height/2, height/2), radius * 2 ));
 }
